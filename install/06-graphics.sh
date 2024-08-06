@@ -38,3 +38,6 @@ if [[ ${GRAPHICS_CARD} = "Nvidia" ]]; then
         _IsAdded "options nvidia_drm modeset=1 fbdev=1" "${CONFIGFILE}"
     fi
 fi
+
+clear
+echo -e "${ASCII_ART}"

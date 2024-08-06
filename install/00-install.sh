@@ -141,3 +141,10 @@ _CopyFiles "${ARCH_SETUP_DIR}/.local" "${HOME}/.local"
 if _CheckFileExist "./07-hyprland.sh"; then
     source ./07-hyprland.sh
 fi
+
+# ---------------------------------------------------------- #
+#               Load script to install themes                #
+# ---------------------------------------------------------- #
+if _CheckFileExist "./08-theme.sh"; then
+    source ./08-theme.sh
+fi

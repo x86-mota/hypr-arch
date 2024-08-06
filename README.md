@@ -1,8 +1,6 @@
 # About
 This repository is dedicated to the installation of packages and customization of a clean installation of Arch Linux.. It contains a script that automates the process of installing and initial system configuration.
 
-<br>
-
 ![Preview](https://github.com/x86-mota/hyrp-arch/blob/main/preview.png)
 
 <br>
@@ -12,14 +10,11 @@ This repository is dedicated to the installation of packages and customization o
 - sudo privileges (requires sudo package install)
 - git
 
-<br>
-
 ## Installation
 Just copy this command in your terminal and execute
 ```bash
 bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.sh)
 ```
-<br>
 
 ## Main Packages
 

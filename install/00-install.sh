@@ -43,5 +43,6 @@ if [ -z "$AUR_HELPER" ]; then
         AUR_HELPER="yay"
         ;;
     esac
-    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+    _ClearLines 4
+    echo -e "[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
 fi

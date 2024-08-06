@@ -78,3 +78,21 @@ if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${ARCH_SETUP_DIR}"; 
     done
     echo -e "${CL}[${GREEN}OK${RC}] - Installation files downloaded into ${ARCH_SETUP_DIR}."
 fi
+
+# ------------------------------------------------------------------------------------- #
+#               Enter the install directory and set executable permissions              #
+# ------------------------------------------------------------------------------------- #
+if [ -d "${ARCH_SETUP_DIR}/install" ]; then
+    cd "${ARCH_SETUP_DIR}/install" || exit
+
+    if [ -f ./00-install.sh ]; then
+        chmod a+x 00-install.sh
+        source ./00-install.sh
+    else
+        echo -e "[${RED}ERROR${RC}] - 00-install.sh not found" 2>&1 | tee -a "${INSTALL_LOG}"
+        exit 1
+    fi
+else
+    echo -e "[${RED}ERROR${RC}] - Directory not found or inaccessible" 2>&1 | tee -a "${INSTALL_LOG}"
+    exit 1
+fi

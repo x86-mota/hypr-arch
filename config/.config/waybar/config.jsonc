@@ -1,0 +1,115 @@
+{
+    "position": "top",
+    "layer": "top",
+    "mode": "dock",
+    "spacing": 5,
+    "margin": "5 15 0 15", //top;right,bottom,left
+    "reload_style_on_change": true,
+    "modules-left": [
+        "custom/power",
+        "hyprland/workspaces",
+        "wlr/taskbar"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "hyprland/language",
+        "keyboard-state",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "tray",
+        "network",
+        "custom/notification"
+    ],
+    "custom/power": {
+        "format": "󰣇",
+        "tooltip": false,
+        "on-click": "wlogout -b 4 -T 975 -R 1500 -B 975 -L 1500 -c 5"
+    },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": []
+        }
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 32,
+        "tooltip-format": "{name}",
+        "on-click": "activate"
+    },
+    "clock": {
+        "format": "{:%a, %d %b, %I:%M %p}",
+        "tooltip": false,
+        "justify": "center",
+        "on-click": "gnome-calendar"
+    },
+    "hyprland/language": {
+        "format": "{long}",
+        "tooltip": false
+    },
+    "keyboard-state": {
+        "capslock": true,
+        "format": {
+            "capslock": "{icon}"
+        },
+        "format-icons": {
+            "locked": "󰬶",
+            "unlocked": "󰬵"
+        }
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": "󰖁",
+        "format-icons": {
+            "alsa_output.pci-0000_07_00.4.analog-stereo": "󰓃",
+            "default": "󰕾"
+        },
+        "on-click": "pavucontrol -t 3",
+        "tooltip-format": "{desc}"
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
+        "on-click": "pavucontrol -t 4",
+        "tooltip-format": "{source_desc} {volume}%"
+    },
+    "tray": {
+        "icon-size": 32,
+        "show-passive-items": true,
+        "spacing": 10
+    },
+    "network": {
+        "justify": "center",
+        "format-ethernet": "󰤨",
+        "tooltip-format-ethernet": "{ipaddr}",
+        "format-wifi": "󰤨",
+        "tooltip-format-wifi": "{essid} {frequency} {signalStrength}",
+        "format-disconnected": "󰤭",
+        "tooltip-format-disconnected": "Disconnected"
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "justify": "center",
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚<span foreground='#8c4351'><sup></sup></span>",
+            "none": "󰂚",
+            "dnd-notification": "󰂛<span foreground='#8c4351'><sup></sup></span>",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󰂚<span foreground='#8c4351'><sup></sup></span>",
+            "inhibited-none": "󰂚",
+            "dnd-inhibited-notification": "󰂛<span foreground='#8c4351'><sup></sup></span>",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "escape": true
+    }
+}

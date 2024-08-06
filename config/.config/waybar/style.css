@@ -1,0 +1,85 @@
+@import '../css/TokyoNight.css';
+
+* {
+  font-family: JetBrainsMono Nerd Font;
+  border-radius: 8px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: @pastel-grey;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#custom-power, #workspaces, #taskbar, #clock , #language, #keyboard-state, #pulseaudio, #tray, #network, #custom-notification {
+  border: 2px solid;
+  border-color: @day-sky-blue;
+  background: @mirage;
+}
+
+#custom-power, #custom-notification, #network, #pulseaudio, #keyboard-state {
+  font-size: 32px;
+}
+
+#workspaces, #clock, #language {
+  font-size: 20px;
+}
+
+#workspaces, #taskbar {
+  margin-left: 15px;
+}
+
+#language, #keyboard-state, #pulseaudio, #tray, #network {
+  margin-right: 15px;
+}
+
+#custom-power {
+  padding-left: 8px;
+  padding-right: 15px;
+  color: @macaw-blue-green;
+}
+
+#workspaces button:hover {
+  background: @dusky-blue;
+}
+
+#taskbar {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#clock {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#language {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#keyboard-state {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+#pulseaudio {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#tray {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#network {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+#custom-notification {
+  padding-left: 11px;
+  padding-right: 15px;
+}

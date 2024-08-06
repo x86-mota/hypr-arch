@@ -1,0 +1,146 @@
+configuration {
+    modes:      "drun";
+    show-icons:  true;
+    font:       "JetBrains Mono Nerd Font 16";
+}
+
+@import "./theme.rasi"
+
+window {
+    cursor:                     "default";
+    location:                   center;
+    anchor:                     center;
+    fullscreen:                 false;
+    width:                      800px;
+    background-color:           @mirage;
+}
+
+mainbox {
+    spacing:                    0px;
+    text-color:                 @pastel-grey;
+    background-color:           transparent;
+    orientation:                vertical;
+    children:                   [ "entry", "listbox" ];
+}
+
+inputbar {
+    spacing:                    10px;
+    padding:                    50px;
+    orientation:                horizontal;
+    children:                   [ "entry" ];
+    text-color:                 inherit;
+    background-color:           transparent;
+}
+
+entry {
+    expand:                     false;
+    width:                      400px;
+    padding:                    14px;
+    placeholder:                "Search ";
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+listbox {
+    spacing:                    20px;
+    orientation:                vertical;
+    children:                   [ "message", "listview" ];
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+message {
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+textbox {
+    padding:                    15px;
+    vertical-align:             0.5;
+    horizontal-align:           0.0;
+    text-color:                 inherit;
+    background-color:           @arsenic;
+}
+
+error-message {
+    padding:                    15px;
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+listview {
+    columns:                    1;
+    scrollbar:                  false;
+    cycle:                      false;
+    spacing:                    5px;
+    lines:                      5;
+    layout:                     vertical;
+    reverse:                    false;
+    fixed-columns:              true;
+    require-input:              false;
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+element {
+    spacing:                    20px;
+    orientation:                horizontal;
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+element-text {
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+element-icon {
+    size:                       32px;
+    text-color:                 inherit;
+    background-color:           inherit;
+}
+
+element normal.normal {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}
+
+element normal.urgent {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}
+
+element normal.active {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}
+
+element selected.normal {
+    background-color:           @periwinkle-blue;
+    text-color:                 @pastel-grey;
+}
+
+element selected.urgent {
+    background-color:           @periwinkle-blue;
+    text-color:                 @pastel-grey;
+}
+
+element selected.active {
+    background-color:           @periwinkle-blue;
+    text-color:                 @pastel-grey;
+}
+
+element alternate.normal {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}
+
+element alternate.urgent {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}
+
+element alternate.active {
+    background-color:           inherit;
+    text-color:                 @pastel-grey;
+}

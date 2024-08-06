@@ -1,0 +1,113 @@
+@import '../css/TokyoNight.css';
+
+* {
+    font-family: JetBrainsMono Nerd Font;
+    font-weight: bolder;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.control-center,
+.notification-content {
+    border: 2px solid @day-sky-blue;
+}
+
+.control-center,
+.notification-content,
+.widget-dnd>switch slider,
+.widget-mpris-player {
+    background: @mirage;
+}
+
+.summary,
+.time {
+    color: @light-moss-green;
+}
+
+.body,
+.widget-title>button,
+.widget-mpris {
+    color: @pastel-grey;
+}
+
+.widget-title,
+.widget-dnd {
+    color: @periwinkle-blue;
+}
+
+.widget-title>button:hover,
+.widget-dnd>switch:checked {
+    background: @watermelon-pink;
+}
+
+.blank-window {
+    background: alpha(black, 0.1)
+}
+
+.notification-row {
+    margin: 10px;
+}
+
+.notification-content {
+    padding: 10px;
+}
+
+.summary {
+    font-size: 16px;
+}
+
+.time {
+    font-size: 12px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.body {
+    font-size: 14px;
+}
+
+.body-image {
+    margin-top: 5px;
+    background-color: @pastel-grey;
+}
+
+.widget-title {
+    padding: 5px 10px;
+    margin: 10px 10px 5px 10px;
+    font-size: 20px;
+}
+
+.widget-title>button {
+    font-size: 16px;
+}
+
+.widget-title>button:hover {
+    color: @mirage;
+}
+
+.widget-dnd {
+    padding: 5px 10px;
+    margin: 10px 10px 5px 10px;
+    font-size: 18px;
+}
+
+.widget-dnd>switch {
+    background: @light-moss-green;
+}
+
+.widget-mpris {
+    padding: 5px 10px;
+}
+
+.widget-mpris-player {
+    border: none;
+    box-shadow: none;
+}
+
+.widget-mpris-title {
+    font-size: 16px;
+}
+
+.widget-mpris-subtitle {
+    font-size: 14px
+}

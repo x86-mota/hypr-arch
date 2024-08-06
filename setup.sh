@@ -3,7 +3,7 @@
 # ------------------------------------------------- #
 #               Set Global Variables                #
 # ------------------------------------------------- #
-ARCH_SETUP_DIR="$HOME/Downloads/hypr-arch"
+ARCH_SETUP_DIR="$HOME/Downloads/archsetup"
 INSTALL_LOG="${ARCH_SETUP_DIR}/install-$(date +"%Y-%m-%d-%H").log"
 RED='\033[1;31m'
 GREEN='\033[1;32m'
@@ -56,26 +56,3 @@ if ! sudo -l >/dev/null 2>&1; then
     echo -e "[${RED}ERROR${RC}] - You need to have sudo privileges to run this script!"
     exit 1
 fi
-
-# ----------------------------------------------------------------- #
-#               Download files from remote repository               #
-# ----------------------------------------------------------------- #
-INSTALL_FOLDERS=(
-    assets
-    config
-    install
-)
-
-if [ -d "$ARCH_SETUP_DIR" ]; then
-    rm -rf "$ARCH_SETUP_DIR"
-fi
-
-mkdir -p "$ARCH_SETUP_DIR"
-
-git clone -n https://gitlab.com/x86_mota/arch-setup "${ARCH_SETUP_DIR}"
-
-cd "${ARCH_SETUP_DIR}" || exit
-
-for FOLDER in  "${INSTALL_FOLDERS[@]}"; do
-    git checkout HEAD -- "$FOLDER"
-done

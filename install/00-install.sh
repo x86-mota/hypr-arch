@@ -88,3 +88,16 @@ fi
 if _CheckFileExist "./04-bootloader.sh"; then
     source ./04-bootloader.sh
 fi
+
+# --------------------------------------------------------------------------------- #
+#               Update makepkg configuration to optimize build threads              #
+# --------------------------------------------------------------------------------- #
+MAKEPKG_PATH="/etc/makepkg.conf"
+NUM_CORES=$(nproc)
+PROC="-j$((NUM_CORES >= 6 ? NUM_CORES - 2 : NUM_CORES))"
+
+echo -e "[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${INSTALL_LOG}"
+sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_PATH}"
+if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
+    source "${MAKEPKG_PATH}"
+fi

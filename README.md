@@ -23,6 +23,9 @@ bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.
 
 ## Main Packages
 
+> [!NOTE]
+> You can find all packages [here](https://github.com/x86-mota/hyrp-arch/blob/main/install/02-packages.sh)
+
 <div align="center">
     <table>
         <thead>
@@ -91,6 +94,3 @@ bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.
         </tbody>
     </table>
 </div>
-
-> [!NOTE]
-> You can find all packages [here](https://github.com/x86-mota/hyrp-arch/blob/main/install/02-packages.sh)

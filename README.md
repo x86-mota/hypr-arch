@@ -42,3 +42,29 @@ bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.
 
 > [!NOTE]
 > You can find all packages [here](https://github.com/x86-mota/hyrp-arch/blob/main/install/02-packages.sh)
+
+<br>
+
+## Keybindings
+
+| Keys                                                                                              | Action                    |
+| :---                                                                                              | :---                      |
+| <kbd>Super</kbd>  +   <kbd>Enter</kbd>                                                            | Application Launcher      |
+| <kbd>Super</kbd>  +   <kbd>F4</kbd>                                                               | Power menu                |
+| <kbd>Super</kbd>  +   <kbd>B</kbd>                                                                | Web browser               |
+| <kbd>Super</kbd>  +   <kbd>E</kbd>                                                                | File Manager              |
+| <kbd>Super</kbd>  +   <kbd>C</kbd>                                                                | Code/Text Editor          |
+| <kbd>Super</kbd>  +   <kbd>T</kbd>                                                                | Terminal Emulator         |
+| <kbd>Super</kbd>  +   <kbd>D</kbd>                                                                | Discord                   |
+| <kbd>Super</kbd>  +   <kbd>S</kbd>                                                                | Spotify                   |
+| <kbd>Super</kbd>  +   <kbd>Shift</kbd>    +   <kbd>S</kbd>                                        | Screenshot                |
+| <kbd>Super</kbd>  +   <kbd>Q</kbd>                                                                | Close focused window      |
+| <kbd>Super</kbd>  +   <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd>                            | Move Focus                |
+| <kbd>Super</kbd>  +   <kbd>Shift</kbd>    +   <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd>    | Change Window             |
+| <kbd>Super</kbd>  +   <kbd>Shift</kbd>    +   <kbd>[0-9]</kbd>                                    | Move to Workspaces        |
+| <kbd>Super</kbd>  +   <kbd>[0-9]</kbd>                                                            | Switch workspaces         |
+| <kbd>Super</kbd>  +   <kbd>W</kbd>                                                                | Toggle the window float   |
+| <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>K</kbd>                                      | Switch keyboard Layout    |
+| <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>W</kbd>                                      | Launch/Restart Waybar     |
+
+<br>

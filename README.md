@@ -65,6 +65,7 @@ bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.
 | <kbd>Super</kbd>  +   <kbd>[0-9]</kbd>                                                            | Switch workspaces         |
 | <kbd>Super</kbd>  +   <kbd>W</kbd>                                                                | Toggle the window float   |
 | <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>K</kbd>                                      | Switch keyboard Layout    |
-| <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>W</kbd>                                      | Launch/Restart Waybar     |
+| <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>B</kbd>                                      | Launch/Restart Waybar     |
+| <kbd>CTRL</kbd>   +   <kbd>SHIT</kbd>     +     <kbd>W</kbd>                                      | Launch/Restart swww       |
 
 <br>

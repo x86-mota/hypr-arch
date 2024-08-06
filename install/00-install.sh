@@ -72,3 +72,12 @@ case "$REPLY" in
 esac
 _ClearLines 5
 echo -e "[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+
+# ----------------------------------------------------------------------------------------- #
+#               Load script for configuring Pacman package manager                          #
+#               This script edits /etc/pacman.conf to adjust Pacman settings                #
+# ----------------------------------------------------------------------------------------- #
+if _CheckFileExist "./03-pacman.sh"; then
+    source ./03-pacman.sh
+fi
+source ./03-pacman.sh

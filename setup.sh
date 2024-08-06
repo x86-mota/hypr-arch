@@ -56,3 +56,25 @@ if ! sudo -l >/dev/null 2>&1; then
     echo -e "[${RED}ERROR${RC}] - You need to have sudo privileges to run this script!"
     exit 1
 fi
+
+# ----------------------------------------------------------------- #
+#               Download files from remote repository               #
+# ----------------------------------------------------------------- #
+INSTALL_FOLDERS=(
+    assets
+    config
+    install
+)
+
+if [ -d "$ARCH_SETUP_DIR" ]; then
+    rm -rf "$ARCH_SETUP_DIR"
+fi
+
+echo -e "[${BLUE}NOTE${RC}] - Downloading installation files..."
+if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${ARCH_SETUP_DIR}"; then
+    cd "${ARCH_SETUP_DIR}" || exit
+    for FOLDER in "${INSTALL_FOLDERS[@]}"; do
+        git checkout HEAD -- "$FOLDER"
+    done
+    echo -e "${CL}[${GREEN}OK${RC}] - Installation files downloaded into ${ARCH_SETUP_DIR}."
+fi

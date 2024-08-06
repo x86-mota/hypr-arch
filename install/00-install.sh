@@ -101,3 +101,10 @@ sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_
 if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
     source "${MAKEPKG_PATH}"
 fi
+
+# ----------------------------------------------------------#
+#               Load AUR Helper install script              #
+# ----------------------------------------------------------#
+if _CheckFileExist "./05-aurhelper.sh"; then
+    source ./05-aurhelper.sh
+fi

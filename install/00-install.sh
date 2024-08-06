@@ -80,4 +80,11 @@ echo -e "[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTAL
 if _CheckFileExist "./03-pacman.sh"; then
     source ./03-pacman.sh
 fi
-source ./03-pacman.sh
+
+# ----------------------------------------------------------------------------- #
+#               Load script for configuring the bootloader                      #
+#               This script makes changes to GRUB configurations                #
+# ----------------------------------------------------------------------------- #
+if _CheckFileExist "./04-bootloader.sh"; then
+    source ./04-bootloader.sh
+fi

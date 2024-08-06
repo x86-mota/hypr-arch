@@ -108,3 +108,10 @@ fi
 if _CheckFileExist "./05-aurhelper.sh"; then
     source ./05-aurhelper.sh
 fi
+
+# -----------------------------------------------------------#
+#               Load GPU drivers install script              #
+# -----------------------------------------------------------#
+if _CheckFileExist "./06-graphics.sh"; then
+    source ./06-graphics.sh
+fi

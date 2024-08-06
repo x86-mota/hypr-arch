@@ -148,3 +148,18 @@ fi
 if _CheckFileExist "./08-theme.sh"; then
     source ./08-theme.sh
 fi
+
+# ----------------------------------------- #
+#               Enable services             #
+# ----------------------------------------- #
+sudo systemctl enable ly.service &>>"${INSTALL_LOG}"
+
+# ------------------------------------------------- #
+#               Setup completed message             #
+# ------------------------------------------------- #
+echo -e "[${GREEN}OK${RC}] - Installation Completed\n"
+echo -en "[${YELLOW}ACTION${RC}] - Would you like to reboot now? (y/n): "
+read
+if [[ "$REPLY" =~ [Yy]$ ]]; then
+    systemctl reboot
+fi

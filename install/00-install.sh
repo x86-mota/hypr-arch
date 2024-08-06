@@ -115,3 +115,13 @@ fi
 if _CheckFileExist "./06-graphics.sh"; then
     source ./06-graphics.sh
 fi
+
+# ------------------------------------------------- #
+#               Install System Packages             #
+# ------------------------------------------------- #
+for PKG in "${SYSTEM[@]}"; do
+    _InstallPackage "${PKG}"
+done
+
+clear
+echo -e "${ASCII_ART}"

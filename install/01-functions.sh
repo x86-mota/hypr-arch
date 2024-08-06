@@ -24,3 +24,14 @@ function _IsInstalled {
         return 1
     fi
 }
+
+# ----------------------------------------------------------------------------- #
+#               Checks if package is available in Arch repositories             #
+# ----------------------------------------------------------------------------- #
+function _IsPacmanAvailable {
+    if pacman -Si "$1" &>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}

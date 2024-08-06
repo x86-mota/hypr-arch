@@ -5,6 +5,8 @@ This repository is dedicated to the installation of packages and customization o
 
 ![Preview](https://github.com/x86-mota/hyrp-arch/blob/main/preview.png)
 
+<br>
+
 ## Requirements
 - A clean installation of Arch Linux
 - sudo privileges (requires sudo package install)

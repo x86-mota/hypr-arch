@@ -134,3 +134,10 @@ _CopyFiles "${ARCH_SETUP_DIR}/.config" "${HOME}/.config"
 
 echo -e "[${BLUE}NOTE${RC}] - Copying scripts...\n" 2>&1 | tee -a "${INSTALL_LOG}"
 _CopyFiles "${ARCH_SETUP_DIR}/.local" "${HOME}/.local"
+
+# --------------------------------------------------------------------- #
+#               Load script to configure Hyprland settings              #
+# --------------------------------------------------------------------- #
+if _CheckFileExist "./07-hyprland.sh"; then
+    source ./07-hyprland.sh
+fi

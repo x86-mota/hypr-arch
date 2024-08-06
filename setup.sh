@@ -30,3 +30,21 @@ ASCII_ART="${GREEN}
      *\`                            \`*                          OOb\"      .JMML.                                             
 
 ${RC}"
+
+# --------------------------------- #
+#               BEGIN               #
+# --------------------------------- #
+
+clear
+echo -e "${ASCII_ART}"
+
+# --------------------------------------------------------- #
+#               Verify the system is Arch Linux             #
+# --------------------------------------------------------- #
+if [ -f /etc/os-release ]; then
+    source /etc/os-release
+    if [ ! "${ID}" == "arch" ]; then
+        echo -e "[${RED}ERROR${RC}] - It seems that the system is not ArchLinux. Aborting..."
+        exit 1
+    fi
+fi

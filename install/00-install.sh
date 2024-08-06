@@ -3,13 +3,16 @@
 clear
 echo -e "${ASCII_ART}"
 
-
 # --------------------------------------------------------------------- #
 #               Load functions used throughout the script               #
 # --------------------------------------------------------------------- #
-source ./01-functions.sh
+if _CheckFileExist; then
+    source ./01-functions.sh
+fi
 
 # ------------------------------------------------------------- #
 #               Load package lists for installation             #
 # ------------------------------------------------------------- #
-source ./02-packages.sh
+if _CheckFileExist; then
+    source ./02-packages.sh
+fi

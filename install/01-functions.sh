@@ -13,3 +13,14 @@ function _IsAdded {
         return 1
     fi
 }
+
+# ----------------------------------------------------------------- #
+#               Checks if package is already installed              #
+# ----------------------------------------------------------------- #
+function _IsInstalled {
+    if command -v "$1" || pacman -Q "$1" &>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}

@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+# ----------------------------------------- #
+#               Packages Lists              #
+# ----------------------------------------- #
+
+AMD=(
+    libva-mesa-driver
+    mesa
+    mesa-vdpau
+    vulkan-icd-loader
+    vulkan-radeon
+    lib32-libva-mesa-driver
+    lib32-mesa
+    lib32-mesa-vdpau
+    lib32-vulkan-icd-loader
+    lib32-vulkan-radeon
+    xf86-video-amdgpu
+)
+
+INTEL=(
+    mesa
+    vulkan-intel
+    lib32-mesa
+    lib32-vulkan-intel
+    xf86-video-intel
+)
+
+NVIDIA=(
+    libva
+    libva-nvidia-driver
+    mesa
+    nvidia-dkms
+    nvidia-settings
+    nvidia-utils
+    vulkan-headers
+    vulkan-icd-loader
+    vulkan-tools
+    lib32-nvidia-utils
+    lib32-vulkan-icd-loader
+)
+
+SYSTEM=(
+    ark
+    bash-completion
+    bibata-cursor-theme-bin
+    bluez
+    bluez-tools
+    bluez-utils
+    brave-bin
+    btop
+    cmake
+    discord
+    dosfstools
+    eog
+    ffmpegthumbnailer
+    fastfetch
+    gnome-calendar
+    gnome-themes-extra
+    google-chrome
+    grim
+    gtk-engine-murrine
+    imagemagick
+    kitty
+    kvantum
+    kvantum-qt5
+    ly
+    mate-polkit
+    nwg-look
+    ntfs-3g
+    papirus-icon-theme
+    pavucontrol
+    pipewire
+    pipewire-alsa
+    pipewire-audio
+    pipewire-pulse
+    plymouth
+    qt5-wayland
+    qt5ct
+    qt6ct
+    rofi
+    sassc
+    slurp
+    spicetify-cli
+    steam
+    starship
+    swww
+    swaync
+    thunar
+    thunar-archive-plugin
+    thunar-volman
+    ttf-jetbrains-mono-nerd
+    tumbler
+    visual-studio-code-bin
+    waybar
+    wireplumber
+    xdg-desktop-portal-hyprland
+    zip
+    zsh
+)

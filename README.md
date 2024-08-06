@@ -1,1 +1,1 @@
-![Preview](https://gitlab.com/x86_mota/arch-setup/-/raw/main/preview.png)
+![Preview](https://github.com/x86-mota/hyrp-arch/blob/main/preview.png)

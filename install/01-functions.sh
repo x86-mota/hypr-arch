@@ -35,3 +35,14 @@ function _IsPacmanAvailable {
         return 1
     fi
 }
+
+# ----------------------------------------------------------------------------- #
+#               Checks if package is available in AUR repositories              #
+# ----------------------------------------------------------------------------- #
+function _IsAURAvailable {
+    if ${AUR_HELPER} -Si "$1" &>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}

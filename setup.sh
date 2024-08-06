@@ -48,3 +48,11 @@ if [ -f /etc/os-release ]; then
         exit 1
     fi
 fi
+
+# ------------------------------------------------------------------------- #
+#               Checks if the current user has sudo privileges              #
+# ------------------------------------------------------------------------- #
+if ! sudo -l >/dev/null 2>&1; then
+    echo -e "[${RED}ERROR${RC}] - You need to have sudo privileges to run this script!"
+    exit 1
+fi

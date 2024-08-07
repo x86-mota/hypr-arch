@@ -51,46 +51,50 @@ fi
 #               Set Keyboard Layout             #
 # --------------------------------------------- #
 HYPR_DIR="${HOME}/.config/hypr"
-KB_LAYOUT_FILE="./assets/kblayout.lst"
-KB_LAYOUT_LIST=($(awk -F' ' '{print $1}' <${KB_LAYOUT_FILE}))
-KB_LAYOUT=()
+KB_LAYOUT_FILE="../assets/kblayout.lst"
+if [ -f "${KB_LAYOUT_FILE}" ]; then
+    pr -tw160 -4 <"${KB_LAYOUT_FILE}"
+    echo
+    KB_LAYOUT_LIST=($(awk -F' ' '{print $1}' <${KB_LAYOUT_FILE}))
+    KB_LAYOUT=()
 
-while true; do
-    echo -en "[${YELLOW}ACTION${RC}] - Which main keyboard layout? (default = us ): "
-    read
-    if [ -z "${REPLY}" ]; then
-        KB_LAYOUT=("us")
-        _ClearLines 1
-        echo -e "[${BLUE}NOTE${RC}] - Keeping default keyboard layout: us"
-        break
-    else
-        if _IsLayoutValid "${REPLY}"; then
-            KB_LAYOUT=("${REPLY}")
+    while true; do
+        echo -en "[${YELLOW}ACTION${RC}] - Which main keyboard layout? (default = us ): "
+        read
+        if [ -z "${REPLY}" ]; then
+            KB_LAYOUT=("us")
             _ClearLines 1
-            echo -e "[${GREEN}OK${RC}] - Main keyboard layout '${REPLY}' added successfully"
+            echo -e "[${BLUE}NOTE${RC}] - Keeping default keyboard layout: us"
             break
         else
-            _ClearLines 1
-            echo -e "[${RED}ERROR${RC}] Layout '${REPLY}' not found. Please try again."
-        fi
-    fi
-done
-
-echo -en "[${YELLOW}ACTION${RC}] - Would you like to add more keyboard layouts? (y/n): "
-read
-if [[ "${REPLY}" =~ [Yy]$ ]]; then
-    while true; do
-        echo -en "[${YELLOW}ACTION${RC}] - Please enter additional keyboard layouts separated by commas: "
-        read
-        if _AdditionalLayouts "${REPLY}"; then
-            sed -i "s/kb_layout = .*/kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')/" "${HYPR_DIR}/theme.conf"
-            _IsAdded "kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')" "${HYPR_DIR}/theme.conf"
-            break
+            if _IsLayoutValid "${REPLY}"; then
+                KB_LAYOUT=("${REPLY}")
+                _ClearLines 1
+                echo -e "[${GREEN}OK${RC}] - Main keyboard layout '${REPLY}' added successfully"
+                break
+            else
+                _ClearLines 1
+                echo -e "[${RED}ERROR${RC}] Layout '${REPLY}' not found. Please try again."
+            fi
         fi
     done
-else
-    sed -i "s/kb_layout = .*/kb_layout = ${KB_LAYOUT}/" "${HYPR_DIR}/theme.conf"
-    _IsAdded "kb_layout = ${KB_LAYOUT}" "${HYPR_DIR}/theme.conf"
+
+    echo -en "[${YELLOW}ACTION${RC}] - Would you like to add more keyboard layouts? (y/n): "
+    read
+    if [[ "${REPLY}" =~ [Yy]$ ]]; then
+        while true; do
+            echo -en "[${YELLOW}ACTION${RC}] - Please enter additional keyboard layouts separated by commas: "
+            read
+            if _AdditionalLayouts "${REPLY}"; then
+                sed -i "s/kb_layout = .*/kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')/" "${HYPR_DIR}/theme.conf"
+                _IsAdded "kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')" "${HYPR_DIR}/theme.conf"
+                break
+            fi
+        done
+    else
+        sed -i "s/kb_layout = .*/kb_layout = ${KB_LAYOUT}/" "${HYPR_DIR}/theme.conf"
+        _IsAdded "kb_layout = ${KB_LAYOUT}" "${HYPR_DIR}/theme.conf"
+    fi
 fi
 
 # ------------------------------------------------------------- #

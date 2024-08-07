@@ -21,8 +21,7 @@ if _IsInstalled grub && [ -f "/boot/grub/grub.cfg" ]; then
         GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"
         GRUB_CMDLINE_LINUX=\"\"
         " | sed 's/^[ \t]*//' | sudo tee -a "${GRUB_CONFIG_FILE}" >/dev/null; then
-        _ClearLines 1
-        echo -e "[${GREEN}OK${RC}] - GRUB file edited successfully." 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "${CL}[${GREEN}OK${RC}] - GRUB file edited successfully." 2>&1 | tee -a "${INSTALL_LOG}"
     else
         sudo mv "$GRUB_CONFIG_FILE.bak" "$GRUB_CONFIG_FILE"
     fi
@@ -36,17 +35,14 @@ if _IsInstalled grub && [ -f "/boot/grub/grub.cfg" ]; then
             sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\1 ${MODESET}/" /etc/default/grub
             _IsAdded "${MODESET}" "/etc/default/grub"
         else
-            _ClearLines 1
-            echo -e "[${BLUE}NOTE${RC}] - ${MODESET} is already present in /etc/default/grub" 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${BLUE}NOTE${RC}] - ${MODESET} is already present in /etc/default/grub" 2>&1 | tee -a "${INSTALL_LOG}"
         fi
     fi
 
     echo -e "[${BLUE}NOTE${RC}] - Updating GRUB..."
     if sudo grub-mkconfig -o /boot/grub/grub.cfg &>>"${INSTALL_LOG}"; then
-        _ClearLines 1
-        echo -e "[${GREEN}OK${RC}] - GRUB updated successfully." 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "${CL}[${GREEN}OK${RC}] - GRUB updated successfully." 2>&1 | tee -a "${INSTALL_LOG}"
     else
-        _ClearLines 1
-        echo -e "[${RED}ERROR${RC}] - GRUB update had failed." 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "${CL}[${RED}ERROR${RC}] - GRUB update had failed." 2>&1 | tee -a "${INSTALL_LOG}"
     fi
 fi

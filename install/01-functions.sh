@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-# ------------------------------------------------- #
-#               Function to clear lines             #
-# ------------------------------------------------- #
-function _ClearLines {
-    for ((i = 0; i < $1; i++)); do
-        echo -ne "${CL}"
-    done
-}
-
 # ------------------------------------------------------------------------------------------ #
 #               Checks if the parameter was added/edited successfully into file              #
 # ------------------------------------------------------------------------------------------ #
@@ -69,17 +60,14 @@ function _InstallPackage {
             echo -e "[${BLUE}NOTE${RC}] - Installing $1 from AUR. This may take a while..." 2>&1 | tee -a "${INSTALL_LOG}"
             ${AUR_HELPER} -S --noconfirm --needed "$1" &>>"${INSTALL_LOG}"
         else
-            _ClearLines 1
-            echo -e "[${RED}ERROR${RC}] - Unknown package $1." 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${RED}ERROR${RC}] - Unknown package $1." 2>&1 | tee -a "${INSTALL_LOG}"
             return
         fi
 
         if _IsInstalled "$1"; then
-            _ClearLines 1
-            echo -e "[${GREEN}OK${RC}] - $1 installed." 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${GREEN}OK${RC}] - $1 installed." 2>&1 | tee -a "${INSTALL_LOG}"
         else
-            _ClearLines 1
-            echo -e "[${RED}ERROR${RC}] - $1 install had failed, please check the install.log" 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${RED}ERROR${RC}] - $1 install had failed, please check the install.log" 2>&1 | tee -a "${INSTALL_LOG}"
             exit 1
         fi
     else
@@ -121,16 +109,13 @@ function _CloneRepository {
     if git ls-remote --exit-code "$URL" &>>"${INSTALL_LOG}"; then
         echo -e "[${BLUE}NOTE${RC}] - Cloning ${URL} repository..." 2>&1 | tee -a "${INSTALL_LOG}"
         if git clone "${URL}" "${TARGET_DIR}" &>>"${INSTALL_LOG}"; then
-            _ClearLines 1
-            echo -e "[${GREEN}OK${RC}] - Cloned repository ${URL}" 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${GREEN}OK${RC}] - Cloned repository ${URL}" 2>&1 | tee -a "${INSTALL_LOG}"
         else
-            _ClearLines 1
-            echo -e "[${RED}ERROR${RC}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "${CL}[${RED}ERROR${RC}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${INSTALL_LOG}"
             exit 1
         fi
     else
-        _ClearLines 1
-        echo -e "[${RED}ERROR${RC}] - The repository ${URL} does not exist." 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "${CL}[${RED}ERROR${RC}] - The repository ${URL} does not exist." 2>&1 | tee -a "${INSTALL_LOG}"
         exit 1
     fi
 }

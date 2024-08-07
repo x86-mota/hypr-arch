@@ -63,18 +63,15 @@ if [ -f "${KB_LAYOUT_FILE}" ]; then
         read
         if [ -z "${REPLY}" ]; then
             KB_LAYOUT=("us")
-            _ClearLines 1
-            echo -e "[${BLUE}NOTE${RC}] - Keeping default keyboard layout: us"
+            echo -e "${CL}[${BLUE}NOTE${RC}] - Keeping default keyboard layout: us"
             break
         else
             if _IsLayoutValid "${REPLY}"; then
                 KB_LAYOUT=("${REPLY}")
-                _ClearLines 1
-                echo -e "[${GREEN}OK${RC}] - Main keyboard layout '${REPLY}' added successfully"
+                echo -e "${CL}[${GREEN}OK${RC}] - Main keyboard layout '${REPLY}' added successfully"
                 break
             else
-                _ClearLines 1
-                echo -e "[${RED}ERROR${RC}] Layout '${REPLY}' not found. Please try again."
+                echo -e "${CL}[${RED}ERROR${RC}] Layout '${REPLY}' not found. Please try again."
             fi
         fi
     done

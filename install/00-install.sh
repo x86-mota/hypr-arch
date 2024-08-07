@@ -43,8 +43,7 @@ if [ -z "$AUR_HELPER" ]; then
         AUR_HELPER="yay"
         ;;
     esac
-    _ClearLines 4
-    echo -e "[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
 fi
 
 # ------------------------------------------------------------------------- #
@@ -70,8 +69,7 @@ case "$REPLY" in
     GPU_PACKAGES=("${AMD[@]}")
     ;;
 esac
-_ClearLines 5
-echo -e "[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
 
 # ----------------------------------------------------------------------------------------- #
 #               Load script for configuring Pacman package manager                          #

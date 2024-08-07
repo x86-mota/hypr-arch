@@ -21,11 +21,9 @@ echo -e "[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee
 bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${INSTALL_LOG}"
 
 if [ -d $HOME/.themes/Tokyonight-Dark ]; then
-    _ClearLines 1
-    echo -e "[${GREEN}OK${RC}] - Theme ${GTK_THEME_NAME} installed successfully." 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}[${GREEN}OK${RC}] - Theme ${GTK_THEME_NAME} installed successfully." 2>&1 | tee -a "${INSTALL_LOG}"
 else
-    _ClearLines 1
-    echo -e "[${RED}ERROR${RC}] - Theme ${GTK_THEME_NAME} installation failed." 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}[${RED}ERROR${RC}] - Theme ${GTK_THEME_NAME} installation failed." 2>&1 | tee -a "${INSTALL_LOG}"
 fi
 
 # ----------------------------------------------------------------------------------------- #

@@ -1,0 +1,15 @@
+autologin.canonical_username=""
+autologin.blob=""
+autologin.saved_credentials=""
+es.send-on-startup=true
+core.clock_delta=7
+app.window.position.x=1031
+autologin.username=""
+app.enable-chrome-runtime=true
+app.window.position.saved=true
+app.window.position.height=526
+app.window.position.y=1087
+storage.last-location=""
+app.window.state.saved=true
+app.window.position.width=1010
+app.last-launched-version="1.2.42.290.g242057a2"

@@ -87,7 +87,7 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
 
             spicetify backup apply
-            
+
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
 
             for FILE in "${COMFY_LIST[@]}"; do
@@ -103,5 +103,17 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1
             spicetify apply
         fi
+    fi
+fi
+
+# ----------------------------------------------------------------- #
+#               Install Tokyo Night VSCode extension                #
+# ----------------------------------------------------------------- #
+if _IsInstalled code; then
+    echo -e "[${BLUE}NOTE${RC}] - Installing VS Code Tokyo Night extension..." 2>&1 | tee -a "${INSTALL_LOG}"
+    if code --install-extension enkia.tokyo-night; then
+        echo -e "${CL}[${GREEN}OK${RC}] - Extension successfully installed" 2>&1 | tee -a "${INSTALL_LOG}"
+    else
+        echo -e "${CL}[${RED}ERROR${RC}] - Extension not installed" 2>&1 | tee -a "${INSTALL_LOG}"
     fi
 fi

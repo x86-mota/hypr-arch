@@ -116,10 +116,10 @@ done
 #               Copy configuration and script files              #
 # ---------------------------------------------------------------#
 echo -e "[${BLUE}NOTE${RC}] - Copying configuration files...\n" 2>&1 | tee -a "${INSTALL_LOG}"
-_CopyFiles "${ARCH_SETUP_DIR}/.config" "${HOME}/.config"
+_CopyFiles "${ARCH_SETUP_DIR}/config/.config" "${HOME}/.config"
 
 echo -e "[${BLUE}NOTE${RC}] - Copying scripts...\n" 2>&1 | tee -a "${INSTALL_LOG}"
-_CopyFiles "${ARCH_SETUP_DIR}/.local" "${HOME}/.local"
+_CopyFiles "${ARCH_SETUP_DIR}/config/.local" "${HOME}/.local"
 
 # --------------------------------------------------------------------- #
 #               Load script to configure Hyprland settings              #

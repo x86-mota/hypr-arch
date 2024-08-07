@@ -83,7 +83,7 @@ function _CopyFiles {
     local DEST_DIR="$2"
 
     for ITEM in "${SOURCE_DIR}"/*; do
-        if cp -r "${ITEM}" "${DEST_DIR}"; then
+         if cp -r "${SOURCE_DIR}/${ITEM##*/}" "${DEST_DIR}"; then
             echo -e "[${GREEN}OK${RC}] - File copied: ${ITEM##*/} to ${DEST_DIR}" 2>&1 | tee -a "${INSTALL_LOG}"
         else
             echo -e "[${RED}ERROR${RC}] - Failed to copy file: ${ITEM##*/}" 2>&1 | tee -a "${INSTALL_LOG}"

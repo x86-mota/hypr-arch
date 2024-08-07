@@ -85,7 +85,8 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             _IsAdded "prefs_path             = $HOME/.config/spotify/prefs" "${SPICETIFY_PATH}"
 
             mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
-            
+            > "${HOME}/.config/spotify/prefs"
+
             spicetify backup apply
             
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"

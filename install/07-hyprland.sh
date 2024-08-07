@@ -32,6 +32,7 @@ function _AdditionalLayouts {
     return 0
 }
 
+sleep 1
 clear
 echo -e "${ASCII_ART}"
 

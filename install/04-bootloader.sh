@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sleep 1
 clear
 echo -e "${ASCII_ART}"
 

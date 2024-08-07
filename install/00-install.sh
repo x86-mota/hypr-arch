@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sleep 1
 clear
 echo -e "${ASCII_ART}"
 
@@ -115,6 +116,7 @@ for PKG in "${SYSTEM[@]}"; do
     _InstallPackage "${PKG}"
 done
 
+sleep 1
 clear
 echo -e "${ASCII_ART}"
 

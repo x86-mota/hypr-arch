@@ -4,7 +4,7 @@
 #               Enable starship in ~/.bashrc                #
 # --------------------------------------------------------- #
 if ! grep -q 'eval "$(starship init bash)"' "$HOME/.bashrc"; then
-    echo -e "[${BLUE}NOTE${RC}] - Enabling Starship\n"
+    echo -e "\n[${BLUE}NOTE${RC}] - Enabling Starship\n"
     sed -i '$s/$/\n\n# Starship\n'"$(echo 'eval "$(starship init bash)"')"'\n/' "$HOME/.bashrc"
     _IsAdded 'eval "$(starship init bash)"' "$HOME/.bashrc"
 fi
@@ -16,9 +16,10 @@ GTK_THEME_URL="https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git"
 GTK_THEME_NAME=$(basename ${GTK_THEME_URL%.git})
 GTK_THEME_PATH="${ARCH_SETUP_DIR}/${GTK_THEME_NAME}/themes/install.sh"
 
+echo -e "\n[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme\n" 2>&1 | tee -a "${INSTALL_LOG}"
+
 _CloneRepository "${GTK_THEME_URL}" "${ARCH_SETUP_DIR}/${GTK_THEME_NAME}"
 
-echo -e "[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee -a "${INSTALL_LOG}"
 bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${INSTALL_LOG}"
 
 if [ -d $HOME/.themes/Tokyonight-Dark ]; then

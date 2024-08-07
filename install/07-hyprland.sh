@@ -50,6 +50,7 @@ fi
 HYPR_DIR="${HOME}/.config/hypr"
 KB_LAYOUT_FILE="../assets/kblayout.lst"
 if [ -f "${KB_LAYOUT_FILE}" ]; then
+    echo
     pr -tw160 -4 <"${KB_LAYOUT_FILE}"
     echo
     KB_LAYOUT_LIST=($(awk -F' ' '{print $1}' <${KB_LAYOUT_FILE}))

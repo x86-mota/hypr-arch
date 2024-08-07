@@ -17,60 +17,6 @@ if _CheckFileExist "./02-packages.sh"; then
     source ./02-packages.sh
 fi
 
-# ----------------------------------------------------------------------------------------------------- #
-#               Let the user choose which AUR helper to use if none is already installed                #
-# ----------------------------------------------------------------------------------------------------- #
-AUR_HELPER_LIST=("paru" "yay")
-for HELPR in "${AUR_HELPER_LIST[@]}"; do
-    if _IsInstalled "$HELPR" &>/dev/null; then
-        AUR_HELPER="$HELPR"
-        echo -e "[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${INSTALL_LOG}"
-        break
-    fi
-done
-
-if [ -z "$AUR_HELPER" ]; then
-    echo -e "${YELLOW}ACTION${RC} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
-    read -rp "Enter your choice [1-2]: "
-    case "$REPLY" in
-    1)
-        AUR_HELPER="yay"
-        ;;
-    2)
-        AUR_HELPER="paru"
-        ;;
-    *)
-        AUR_HELPER="yay"
-        ;;
-    esac
-    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
-fi
-
-# ------------------------------------------------------------------------- #
-#               Let the user choose which graphics card to use              #
-# ------------------------------------------------------------------------- #
-echo -e "[${YELLOW}ACTION${RC}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
-read -rp "Enter your choice [1-3]: "
-case "$REPLY" in
-1)
-    GRAPHICS_CARD="AMD"
-    GPU_PACKAGES=("${AMD[@]}")
-    ;;
-2)
-    GRAPHICS_CARD="Intel"
-    GPU_PACKAGES=("${INTEL[@]}")
-    ;;
-3)
-    GRAPHICS_CARD="Nvidia"
-    GPU_PACKAGES=("${NVIDIA[@]}")
-    ;;
-*)
-    GRAPHICS_CARD="AMD"
-    GPU_PACKAGES=("${AMD[@]}")
-    ;;
-esac
-echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
-
 # ----------------------------------------------------------------------------------------- #
 #               Load script for configuring Pacman package manager                          #
 #               This script edits /etc/pacman.conf to adjust Pacman settings                #
@@ -100,16 +46,64 @@ if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
     source "${MAKEPKG_PATH}"
 fi
 
-# ----------------------------------------------------------#
-#               Load AUR Helper install script              #
-# ----------------------------------------------------------#
-if _CheckFileExist "./05-aurhelper.sh"; then
-    source ./05-aurhelper.sh
+# ----------------------------------------------------------------------------------------------------- #
+#               Let the user choose which AUR helper to use if none is already installed                #
+# ----------------------------------------------------------------------------------------------------- #
+AUR_HELPER_LIST=("paru" "yay")
+for HELPR in "${AUR_HELPER_LIST[@]}"; do
+    if _IsInstalled "$HELPR" &>/dev/null; then
+        AUR_HELPER="$HELPR"
+        echo -e "[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${INSTALL_LOG}"
+        break
+    fi
+done
+
+if [ -z "$AUR_HELPER" ]; then
+    echo -e "${YELLOW}ACTION${RC} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
+    read -rp "Enter your choice [1-2]: "
+    case "$REPLY" in
+    1)
+        AUR_HELPER="yay"
+        ;;
+    2)
+        AUR_HELPER="paru"
+        ;;
+    *)
+        AUR_HELPER="yay"
+        ;;
+    esac
+    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+
+    if _CheckFileExist "./05-aurhelper.sh"; then
+        source ./05-aurhelper.sh
+    fi
 fi
 
-# -----------------------------------------------------------#
-#               Load GPU drivers install script              #
-# -----------------------------------------------------------#
+# ------------------------------------------------------------------------- #
+#               Let the user choose which graphics card to use              #
+# ------------------------------------------------------------------------- #
+echo -e "[${YELLOW}ACTION${RC}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
+read -rp "Enter your choice [1-3]: "
+case "$REPLY" in
+1)
+    GRAPHICS_CARD="AMD"
+    GPU_PACKAGES=("${AMD[@]}")
+    ;;
+2)
+    GRAPHICS_CARD="Intel"
+    GPU_PACKAGES=("${INTEL[@]}")
+    ;;
+3)
+    GRAPHICS_CARD="Nvidia"
+    GPU_PACKAGES=("${NVIDIA[@]}")
+    ;;
+*)
+    GRAPHICS_CARD="AMD"
+    GPU_PACKAGES=("${AMD[@]}")
+    ;;
+esac
+echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+
 if _CheckFileExist "./06-graphics.sh"; then
     source ./06-graphics.sh
 fi

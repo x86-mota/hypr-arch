@@ -64,6 +64,7 @@ spicetify backup apply
 | <kbd>Super</kbd>  +   <kbd>T</kbd>                                                                | Terminal Emulator         |
 | <kbd>Super</kbd>  +   <kbd>D</kbd>                                                                | Discord                   |
 | <kbd>Super</kbd>  +   <kbd>S</kbd>                                                                | Spotify                   |
+| <kbd>CTRL</kbd>   +   <kbd>Shift</kbd>    +   <kbd>ESC</kbd>                                      | System Monitor            |
 | <kbd>Super</kbd>  +   <kbd>Shift</kbd>    +   <kbd>S</kbd>                                        | Screenshot                |
 | <kbd>Super</kbd>  +   <kbd>Q</kbd>                                                                | Close focused window      |
 | <kbd>Super</kbd>  +   <kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd>                            | Move Focus                |

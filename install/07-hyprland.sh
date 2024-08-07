@@ -95,6 +95,7 @@ fi
 #               Adicional Settings for NVIDIA users             #
 # ------------------------------------------------------------- #
 if [[ ${GRAPHICS_CARD} = "Nvidia" ]]; then
+    echo -e "\n[${BLUE}NOTE${RC}] - Applying settings for nvidia...\n"
     sed -i "s|^#\(.*source = ~/.config/hypr/nvidia.conf.*\)|\1|" "${HYPR_DIR}/hyprland.conf"
     _IsAdded "source = ~/.config/hypr/nvidia.conf" "${HYPR_DIR}/hyprland.conf"
 

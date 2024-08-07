@@ -63,17 +63,36 @@ done
 # ------------------------------------------------- #
 #               Install Spotify theme               #
 # ------------------------------------------------- #
-echo -e "[${BLUE}NOTE${RC}] - Applying theme"
-SPOTIFY_THEME_URL="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
-SPICETIFY_DIR="$(dirname "$(spicetify -c)")"
+if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
+    if spicetify -c &>/dev/null; then
+        SPICETIFY_PATH=$(spicetify -c)
+        SPICETIFY_DIR="$(dirname "${SPICETIFY_PATH}")"
+        COMFY_LIST=("color.ini" "user.css" "theme.js")
+        SPOTIFY_THEME_URL="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
 
-mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
+        if [ -f "${SPICETIFY_PATH}" ]; then
+            echo -e "\n[${BLUE}NOTE${RC}] - Applying Spotify theme\n"
 
-curl --silent --output "${SPICETIFY_DIR}/Themes/Comfy/color.ini" "${SPOTIFY_THEME_URL}/color.ini"
-curl --silent --output "${SPICETIFY_DIR}/Themes/Comfy/user.css" "${SPOTIFY_THEME_URL}/user.css"
-curl --silent --output "${SPICETIFY_DIR}/Themes/Comfy/theme.js" "${SPOTIFY_THEME_URL}/theme.js"
+            sed -i 's|^spotify_path\s*=\s*.*|spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/|' "${SPICETIFY_PATH}"
+            _IsAdded "spotify_path           = \$HOME/.local/share/spotify-launcher/install/usr/share/spotify/" "${SPICETIFY_PATH}"
 
-spicetify config current_theme Comfy color_scheme catppuccin-mocha
-spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1
-spicetify apply
-echo -e "[${GREEN}OK${RC}] - All done!"
+            sed -i 's|^prefs_path\s*=\s*.*|prefs_path             = '$HOME'/.config/spotify/prefs|' "${SPICETIFY_PATH}"
+            _IsAdded "prefs_path             = $HOME/.config/spotify/prefs" "${SPICETIFY_PATH}"
+
+            mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
+
+            for FILE in "${COMFY_LIST[@]}"; do
+                echo -e "[${BLUE}NOTE${RC}] - Downloading file ${FILE}..."
+                if curl -s "${SPOTIFY_THEME_URL}/${FILE}" -o "${SPICETIFY_DIR}/Themes/Comfy/${FILE}"; then
+                    echo -e "${CL}[${GREEN}OK${RC}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy"
+                else
+                    echo -e "${CL}[${RED}ERROR${RC}] - download failed."
+                fi
+            done
+
+            spicetify config current_theme Comfy color_scheme catppuccin-mocha
+            spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1
+            spicetify apply
+        fi
+    fi
+fi

@@ -47,9 +47,9 @@ SYSTEM=(
     bluez
     bluez-tools
     bluez-utils
+    blueman
     brave-bin
     btop
-    cmake
     discord
     dosfstools
     eog
@@ -59,13 +59,17 @@ SYSTEM=(
     gnome-themes-extra
     google-chrome
     grim
+    gst-plugin-pipewire
     gtk-engine-murrine
+    gvfs
+    hyprland
     imagemagick
     kitty
     kvantum
     kvantum-qt5
     ly
     mate-polkit
+    network-manager-applet
     nwg-look
     ntfs-3g
     papirus-icon-theme
@@ -92,10 +96,10 @@ SYSTEM=(
     thunar-volman
     ttf-jetbrains-mono-nerd
     tumbler
+    unzip
     visual-studio-code-bin
     waybar
     wireplumber
+    wlogout
     xdg-desktop-portal-hyprland
-    zip
-    zsh
 )

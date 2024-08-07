@@ -17,7 +17,7 @@ This repository is dedicated to the installation of packages and customization o
 ## Installation
 Just copy this command in your terminal and execute
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hyrp-arch/main/setup.sh)
+bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hypr-arch/main/setup.sh)
 ```
 <br>
 

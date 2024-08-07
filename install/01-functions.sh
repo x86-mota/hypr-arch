@@ -102,3 +102,35 @@ function _CopyFiles {
         fi
     done
 }
+
+# ---------------------------------------------------------------- #
+#               Function to clone a remote repository              #
+# ---------------------------------------------------------------- #
+function _CloneRepository {
+    local URL="$1"
+    local TARGET_DIR="$2"
+
+    if ! _IsInstalled git; then
+        _InstallPackage git
+    fi
+
+    if [ -d "$TARGET_DIR" ]; then
+        rm -rf "$TARGET_DIR"
+    fi
+
+    if git ls-remote --exit-code "$URL" &>>"${INSTALL_LOG}"; then
+        echo -e "[${BLUE}NOTE${RC}] - Cloning ${URL} repository..." 2>&1 | tee -a "${INSTALL_LOG}"
+        if git clone "${URL}" "${TARGET_DIR}" &>>"${INSTALL_LOG}"; then
+            _ClearLines 1
+            echo -e "[${GREEN}OK${RC}] - Cloned repository ${URL}" 2>&1 | tee -a "${INSTALL_LOG}"
+        else
+            _ClearLines 1
+            echo -e "[${RED}ERROR${RC}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${INSTALL_LOG}"
+            exit 1
+        fi
+    else
+        _ClearLines 1
+        echo -e "[${RED}ERROR${RC}] - The repository ${URL} does not exist." 2>&1 | tee -a "${INSTALL_LOG}"
+        exit 1
+    fi
+}

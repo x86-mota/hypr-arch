@@ -31,6 +31,18 @@ ASCII_ART="${GREEN}
 
 ${RC}"
 
+# ------------------------------------------------- #
+#               Checks if file exists               #
+# ------------------------------------------------- #
+function _CheckFileExist {
+    if [ -f "$1" ]; then
+        return 0
+    else
+        echo -e "[${RED}ERROR${RC}] - file '$1' not found."
+        exit 1
+    fi
+}
+
 # --------------------------------- #
 #               BEGIN               #
 # --------------------------------- #

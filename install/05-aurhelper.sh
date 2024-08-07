@@ -3,6 +3,8 @@
 # --------------------------------------------- #
 #               Install AUR Helper              #
 # --------------------------------------------- #
+echo -e "\n[${BLUE}NOTE${RC}] - Installing AUR helper ${AUR_HELPER}..." 2>&1 | tee -a "${INSTALL_LOG}"
+
 _CloneRepository "https://aur.archlinux.org/${AUR_HELPER}.git" "${ARCH_SETUP_DIR}/${AUR_HELPER}"
 
 cd "${ARCH_SETUP_DIR}/${AUR_HELPER}" || exit
@@ -11,7 +13,6 @@ if ! _IsInstalled base-devel; then
     _InstallPackage base-devel
 fi
 
-echo -e "[${BLUE}NOTE${RC}] - Installing AUR helper ${AUR_HELPER}..." 2>&1 | tee -a "${INSTALL_LOG}"
 makepkg --noconfirm -si &>>"${INSTALL_LOG}"
 
 if _IsInstalled "${AUR_HELPER}"; then

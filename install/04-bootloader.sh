@@ -5,7 +5,7 @@
 # ------------------------------------------------------------------------------------------------- #
 if _IsInstalled grub && [ -f "/boot/grub/grub.cfg" ]; then
     GRUB_CONFIG_FILE="/etc/default/grub"
-    echo -e "[${BLUE}NOTE${RC}] - Editing ${GRUB_CONFIG_FILE}.\n" 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "\n[${BLUE}NOTE${RC}] - Editing ${GRUB_CONFIG_FILE}." 2>&1 | tee -a "${INSTALL_LOG}"
     if [ ! -f "${GRUB_CONFIG_FILE}.bak" ]; then
         sudo mv "${GRUB_CONFIG_FILE}" "${GRUB_CONFIG_FILE}.bak"
     fi

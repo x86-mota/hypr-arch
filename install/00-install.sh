@@ -37,7 +37,7 @@ MAKEPKG_PATH="/etc/makepkg.conf"
 NUM_CORES=$(nproc)
 PROC="-j$((NUM_CORES >= 6 ? NUM_CORES - 2 : NUM_CORES))"
 
-echo -e "[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${INSTALL_LOG}"
 sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_PATH}"
 if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
     source "${MAKEPKG_PATH}"
@@ -50,13 +50,13 @@ AUR_HELPER_LIST=("paru" "yay")
 for HELPR in "${AUR_HELPER_LIST[@]}"; do
     if _IsInstalled "$HELPR" &>/dev/null; then
         AUR_HELPER="$HELPR"
-        echo -e "[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "\n[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${INSTALL_LOG}"
         break
     fi
 done
 
 if [ -z "$AUR_HELPER" ]; then
-    echo -e "${YELLOW}ACTION${RC} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
+    echo -e "\n${YELLOW}ACTION${RC} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
     read -rp "Enter your choice [1-2]: "
     case "$REPLY" in
     1)
@@ -79,7 +79,7 @@ fi
 # ------------------------------------------------------------------------- #
 #               Let the user choose which graphics card to use              #
 # ------------------------------------------------------------------------- #
-echo -e "[${YELLOW}ACTION${RC}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
+echo -e "\n[${YELLOW}ACTION${RC}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
 read -rp "Enter your choice [1-3]: "
 case "$REPLY" in
 1)
@@ -108,6 +108,7 @@ fi
 # ------------------------------------------------- #
 #               Install System Packages             #
 # ------------------------------------------------- #
+echo -e "\n[${BLUE}NOTE${RC}] - Installing system packages"
 for PKG in "${SYSTEM[@]}"; do
     _InstallPackage "${PKG}"
 done
@@ -115,10 +116,10 @@ done
 # ---------------------------------------------------------------#
 #               Copy configuration and script files              #
 # ---------------------------------------------------------------#
-echo -e "[${BLUE}NOTE${RC}] - Copying configuration files...\n" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Copying configuration files..." 2>&1 | tee -a "${INSTALL_LOG}"
 _CopyFiles "${ARCH_SETUP_DIR}/config/.config" "${HOME}/.config"
 
-echo -e "[${BLUE}NOTE${RC}] - Copying scripts...\n" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Copying scripts..." 2>&1 | tee -a "${INSTALL_LOG}"
 _CopyFiles "${ARCH_SETUP_DIR}/config/.local" "${HOME}/.local"
 
 # --------------------------------------------------------------------- #

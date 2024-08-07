@@ -6,7 +6,7 @@
 PACMAN_PATH="/etc/pacman.conf"
 MISC_OPTIONS=(Color CheckSpace VerbosePkgLists ParallelDownloads)
 
-echo -e "[${BLUE}NOTE${RC}] - Adding extra spice to ${PACMAN_PATH}\n" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Adding extra spice to ${PACMAN_PATH}\n" 2>&1 | tee -a "${INSTALL_LOG}"
 for MISC in "${MISC_OPTIONS[@]}"; do
     if grep -wq "^#${MISC}" "${PACMAN_PATH}"; then
         sudo sed -i "s/^#${MISC}/${MISC}/" "${PACMAN_PATH}"

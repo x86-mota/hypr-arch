@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo -e "[${BLUE}NOTE${RC}] - Installing ${GRAPHICS_CARD} packages..." 2>&1 | tee -a "${INSTALL_LOG}"
+
 # --------------------------------------------- #
 #               Get kernel headers              #
 # --------------------------------------------- #

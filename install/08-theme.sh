@@ -84,8 +84,10 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             sed -i 's|^prefs_path\s*=\s*.*|prefs_path             = '$HOME'/.config/spotify/prefs|' "${SPICETIFY_PATH}"
             _IsAdded "prefs_path             = $HOME/.config/spotify/prefs" "${SPICETIFY_PATH}"
 
+            mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
+            
             spicetify backup apply
-
+            
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
 
             for FILE in "${COMFY_LIST[@]}"; do

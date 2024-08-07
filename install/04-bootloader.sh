@@ -18,7 +18,7 @@ if _IsInstalled grub && [ -f "/boot/grub/grub.cfg" ]; then
         GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"
         GRUB_CMDLINE_LINUX=\"\"
         " | sed 's/^[ \t]*//' | sudo tee -a "${GRUB_CONFIG_FILE}" >/dev/null; then
-        echo -e "${CL}[${GREEN}OK${RC}] - GRUB file edited successfully." 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "[${GREEN}OK${RC}] - GRUB file edited successfully." 2>&1 | tee -a "${INSTALL_LOG}"
     else
         sudo mv "$GRUB_CONFIG_FILE.bak" "$GRUB_CONFIG_FILE"
     fi

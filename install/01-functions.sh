@@ -82,6 +82,8 @@ function _CopyFiles {
     local SOURCE_DIR="$1"
     local DEST_DIR="$2"
 
+    mkdir -p "$DEST_DIR"
+    
     for ITEM in "${SOURCE_DIR}"/*; do
          if cp -r "${SOURCE_DIR}/${ITEM##*/}" "${DEST_DIR}"; then
             echo -e "[${GREEN}OK${RC}] - File copied: ${ITEM##*/} to ${DEST_DIR}" 2>&1 | tee -a "${INSTALL_LOG}"

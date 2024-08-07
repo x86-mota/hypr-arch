@@ -82,6 +82,7 @@ SYSTEM=(
     sassc
     slurp
     spicetify-cli
+    spotify-launcher
     steam
     starship
     swww

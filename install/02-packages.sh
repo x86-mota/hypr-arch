@@ -43,7 +43,7 @@ NVIDIA=(
 SYSTEM=(
     ark
     bash-completion
-    bibata-cursor-theme-bin
+    bibata-cursor-theme
     bluez
     bluez-tools
     bluez-utils

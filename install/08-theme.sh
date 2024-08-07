@@ -76,7 +76,7 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
         SPOTIFY_THEME_URL="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
 
         if [ -f "${SPICETIFY_PATH}" ]; then
-            echo -e "\n[${BLUE}NOTE${RC}] - Applying Spotify theme\n"
+            echo -e "\n[${BLUE}NOTE${RC}] - Applying Spotify theme\n" 2>&1 | tee -a "${INSTALL_LOG}"
 
             sed -i 's|^spotify_path\s*=\s*.*|spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/|' "${SPICETIFY_PATH}"
             _IsAdded "spotify_path           = \$HOME/.local/share/spotify-launcher/install/usr/share/spotify/" "${SPICETIFY_PATH}"
@@ -91,11 +91,11 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
 
             for FILE in "${COMFY_LIST[@]}"; do
-                echo -e "[${BLUE}NOTE${RC}] - Downloading file ${FILE}..."
+                echo -e "[${BLUE}NOTE${RC}] - Downloading file ${FILE}..." 2>&1 | tee -a "${INSTALL_LOG}"
                 if curl -s "${SPOTIFY_THEME_URL}/${FILE}" -o "${SPICETIFY_DIR}/Themes/Comfy/${FILE}"; then
-                    echo -e "${CL}[${GREEN}OK${RC}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy"
+                    echo -e "${CL}[${GREEN}OK${RC}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy" 2>&1 | tee -a "${INSTALL_LOG}"
                 else
-                    echo -e "${CL}[${RED}ERROR${RC}] - download failed."
+                    echo -e "${CL}[${RED}ERROR${RC}] - download failed." 2>&1 | tee -a "${INSTALL_LOG}"
                 fi
             done
 

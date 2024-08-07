@@ -3,7 +3,7 @@
 # ------------------------------------------------- #
 #               Set Global Variables                #
 # ------------------------------------------------- #
-ARCH_SETUP_DIR="$HOME/Downloads/archsetup"
+ARCH_SETUP_DIR="$HOME/Downloads/hypr-arch"
 INSTALL_LOG="${ARCH_SETUP_DIR}/install-$(date +"%Y-%m-%d-%H").log"
 RED='\033[1;31m'
 GREEN='\033[1;32m'

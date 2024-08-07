@@ -3,7 +3,11 @@
 # --------------------------------------------------------- #
 #               Enable starship in ~/.bashrc                #
 # --------------------------------------------------------- #
-sed -i '$s/$/\n\n# Starship\n'"$(echo 'eval "$(starship init bash)"')"'\n/' "$HOME/.bashrc"
+if ! grep -q 'eval "$(starship init bash)"' "$HOME/.bashrc"; then
+    echo -e "[${BLUE}NOTE${RC}] - Enabling Starship\n"
+    sed -i '$s/$/\n\n# Starship\n'"$(echo 'eval "$(starship init bash)"')"'\n/' "$HOME/.bashrc"
+    _IsAdded 'eval "$(starship init bash)"' "$HOME/.bashrc"
+fi
 
 # --------------------------------------------------------- #
 #               Install Tokyo Night GTK Theme               #

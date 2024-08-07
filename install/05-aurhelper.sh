@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 1
-clear
-echo -e "${ASCII_ART}"
-
 # --------------------------------------------- #
 #               Install AUR Helper              #
 # --------------------------------------------- #
@@ -27,4 +23,3 @@ else
 fi
 
 cd "${ARCH_SETUP_DIR}/install" || exit
-

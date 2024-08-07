@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 1
-clear
-echo -e "${ASCII_ART}"
-
 # --------------------------------------------- #
 #               Get kernel headers              #
 # --------------------------------------------- #
@@ -39,7 +35,3 @@ if [[ ${GRAPHICS_CARD} = "Nvidia" ]]; then
         _IsAdded "options nvidia_drm modeset=1 fbdev=1" "${CONFIGFILE}"
     fi
 fi
-
-sleep 1
-clear
-echo -e "${ASCII_ART}"

@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-sleep 1
-clear
-echo -e "${ASCII_ART}"
-
 # --------------------------------------------------------------------- #
 #               Load functions used throughout the script               #
 # --------------------------------------------------------------------- #
@@ -115,10 +111,6 @@ fi
 for PKG in "${SYSTEM[@]}"; do
     _InstallPackage "${PKG}"
 done
-
-sleep 1
-clear
-echo -e "${ASCII_ART}"
 
 # ---------------------------------------------------------------#
 #               Copy configuration and script files              #

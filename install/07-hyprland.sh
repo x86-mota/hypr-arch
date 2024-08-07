@@ -32,10 +32,6 @@ function _AdditionalLayouts {
     return 0
 }
 
-sleep 1
-clear
-echo -e "${ASCII_ART}"
-
 # ----------------------------------------------------------------------------------------------------------------- #
 #               Loop through each script file in USER_SCRIPTS_DIR and make them executable for the user             #
 # ----------------------------------------------------------------------------------------------------------------- #

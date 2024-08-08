@@ -96,6 +96,7 @@ SYSTEM=(
     tumbler
     unzip
     visual-studio-code-bin
+    vlc
     waybar
     wireplumber
     wlogout

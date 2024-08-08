@@ -111,7 +111,7 @@ fi
 # ----------------------------------------------------------------- #
 if _IsInstalled code; then
     echo -e "[${BLUE}NOTE${RC}] - Installing VS Code Tokyo Night extension..." 2>&1 | tee -a "${INSTALL_LOG}"
-    if code --install-extension enkia.tokyo-night >> "${INSTALL_LOG}" 2>&1"; then
+    if code --install-extension enkia.tokyo-night >> "${INSTALL_LOG}" 2>&1; then
         echo -e "${CL}[${GREEN}OK${RC}] - Extension successfully installed" 2>&1 | tee -a "${INSTALL_LOG}"
     else
         echo -e "${CL}[${RED}ERROR${RC}] - Extension not installed" 2>&1 | tee -a "${INSTALL_LOG}"

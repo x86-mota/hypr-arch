@@ -22,7 +22,7 @@ bash <(curl -sL https://raw.githubusercontent.com/x86-mota/hypr-arch/main/setup.
 <br>
 
 > [!IMPORTANT]
-> After logging into Spotify, open your terminal and run the command below so that the theme is applied correctly
+> After opening the spotify app, open your terminal and run the command below so that the theme is applied correctly
 ```bash
 spicetify backup apply
 ```

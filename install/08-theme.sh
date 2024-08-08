@@ -86,7 +86,7 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
 
             mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
 
-            spicetify backup apply >> "${INSTALL_LOG}" 2>&1
+            spicetify backup apply >>"${INSTALL_LOG}" 2>&1
 
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
 
@@ -100,18 +100,28 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
             done
 
             spicetify config current_theme Comfy color_scheme catppuccin-mocha
-            spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1 
-            spicetify apply >> "${INSTALL_LOG}" 2>&1
+            spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1
+            spicetify apply >>"${INSTALL_LOG}" 2>&1
         fi
     fi
 fi
+
+# ------------------------------------------------------------- #
+#               Set COlor Scheme Path for QT Apps               #
+# ------------------------------------------------------------- #
+QT_LIST=("qt5ct" "qt6ct")
+for QT in "${QT_LIST[@]}"; do
+    QT_PATH="${HOME}/.config/${QT}/${QT}.conf"
+    COLOR_SCHEME_PATH="${HOME}/.config/${QT}/colors/Catppuccin-Mocha.conf"
+    sed -i "s|^color_scheme_path=.*|color_scheme_path=${COLOR_SCHEME_PATH}|" "$QT_PATH"
+done
 
 # ----------------------------------------------------------------- #
 #               Install Tokyo Night VSCode extension                #
 # ----------------------------------------------------------------- #
 if _IsInstalled code; then
     echo -e "[${BLUE}NOTE${RC}] - Installing VS Code Tokyo Night extension..." 2>&1 | tee -a "${INSTALL_LOG}"
-    if code --install-extension enkia.tokyo-night >> "${INSTALL_LOG}" 2>&1; then
+    if code --install-extension enkia.tokyo-night >>"${INSTALL_LOG}" 2>&1; then
         echo -e "${CL}[${GREEN}OK${RC}] - Extension successfully installed" 2>&1 | tee -a "${INSTALL_LOG}"
     else
         echo -e "${CL}[${RED}ERROR${RC}] - Extension not installed" 2>&1 | tee -a "${INSTALL_LOG}"

@@ -28,6 +28,11 @@ spicetify backup apply
 ```
 <br>
 
+> [!TIP]
+> To apply themes on discord, take a look at the [BetterDiscord](https://betterdiscord.app/) project
+
+<br>
+
 ## Main Packages
 
 |   Name                                                                                    | Function              |

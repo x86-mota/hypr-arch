@@ -85,7 +85,7 @@
     },
     "network": {
         "justify": "center",
-        "format-ethernet": "󰤨",
+        "format-ethernet": "󰈀",
         "tooltip-format-ethernet": "{ipaddr}",
         "format-wifi": "󰤨",
         "tooltip-format-wifi": "{essid} {frequency} {signalStrength}",

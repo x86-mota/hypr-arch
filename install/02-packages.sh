@@ -65,8 +65,6 @@ SYSTEM=(
     hyprland
     imagemagick
     kitty
-    kvantum
-    kvantum-qt5
     ly
     mate-polkit
     network-manager-applet

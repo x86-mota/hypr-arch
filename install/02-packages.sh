@@ -56,6 +56,7 @@ SYSTEM=(
     ffmpegthumbnailer
     fastfetch
     gnome-calendar
+    gnome-disk-utility
     gnome-themes-extra
     google-chrome
     grim

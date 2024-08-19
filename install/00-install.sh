@@ -37,7 +37,7 @@ MAKEPKG_PATH="/etc/makepkg.conf"
 NUM_CORES=$(nproc)
 PROC="-j$((NUM_CORES >= 6 ? NUM_CORES - 2 : NUM_CORES))"
 
-echo -e "\n[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${InstallationLog}"
 sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_PATH}"
 if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
     source "${MAKEPKG_PATH}"
@@ -50,7 +50,7 @@ AUR_HELPER_LIST=("paru" "yay")
 for HELPR in "${AUR_HELPER_LIST[@]}"; do
     if _IsInstalled "$HELPR" &>/dev/null; then
         AUR_HELPER="$HELPR"
-        echo -e "\n[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "\n[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${InstallationLog}"
         break
     fi
 done
@@ -69,7 +69,7 @@ if [ -z "$AUR_HELPER" ]; then
         AUR_HELPER="yay"
         ;;
     esac
-    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${InstallationLog}"
 
     if _CheckFileExist "./05-aurhelper.sh"; then
         source ./05-aurhelper.sh
@@ -99,7 +99,7 @@ case "$REPLY" in
     GPU_PACKAGES=("${AMD[@]}")
     ;;
 esac
-echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${InstallationLog}"
 
 if _CheckFileExist "./06-graphics.sh"; then
     source ./06-graphics.sh
@@ -116,10 +116,10 @@ done
 # ---------------------------------------------------------------#
 #               Copy configuration and script files              #
 # ---------------------------------------------------------------#
-echo -e "\n[${BLUE}NOTE${RC}] - Copying configuration files..." 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Copying configuration files..." 2>&1 | tee -a "${InstallationLog}"
 _CopyFiles "${DownloadDirectory}/config/.config" "${HOME}/.config"
 
-echo -e "\n[${BLUE}NOTE${RC}] - Copying scripts..." 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Copying scripts..." 2>&1 | tee -a "${InstallationLog}"
 _CopyFiles "${DownloadDirectory}/config/.local" "${HOME}/.local"
 
 # --------------------------------------------------------------------- #
@@ -139,7 +139,7 @@ fi
 # ----------------------------------------- #
 #               Enable services             #
 # ----------------------------------------- #
-sudo systemctl enable ly.service &>>"${INSTALL_LOG}"
+sudo systemctl enable ly.service &>>"${InstallationLog}"
 
 # ------------------------------------------------- #
 #               Setup completed message             #

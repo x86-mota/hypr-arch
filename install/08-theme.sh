@@ -16,16 +16,16 @@ GTK_THEME_URL="https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git"
 GTK_THEME_NAME=$(basename ${GTK_THEME_URL%.git})
 GTK_THEME_PATH="${DownloadDirectory}/${GTK_THEME_NAME}/themes/install.sh"
 
-echo -e "\n[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee -a "${INSTALL_LOG}"
+echo -e "\n[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee -a "${InstallationLog}"
 
 _CloneRepository "${GTK_THEME_URL}" "${DownloadDirectory}/${GTK_THEME_NAME}"
 
-bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${INSTALL_LOG}"
+bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${InstallationLog}"
 
 if [ -d $HOME/.themes/Tokyonight-Dark ]; then
-    echo -e "${CL}[${GREEN}OK${RC}] - Theme ${GTK_THEME_NAME} installed successfully." 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}[${GREEN}OK${RC}] - Theme ${GTK_THEME_NAME} installed successfully." 2>&1 | tee -a "${InstallationLog}"
 else
-    echo -e "${CL}[${RED}ERROR${RC}] - Theme ${GTK_THEME_NAME} installation failed." 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "${CL}[${RED}ERROR${RC}] - Theme ${GTK_THEME_NAME} installation failed." 2>&1 | tee -a "${InstallationLog}"
 fi
 
 # ----------------------------------------------------------------------------------------- #
@@ -76,7 +76,7 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
         SPOTIFY_THEME_URL="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
 
         if [ -f "${SPICETIFY_PATH}" ]; then
-            echo -e "\n[${BLUE}NOTE${RC}] - Applying Spotify theme\n" 2>&1 | tee -a "${INSTALL_LOG}"
+            echo -e "\n[${BLUE}NOTE${RC}] - Applying Spotify theme\n" 2>&1 | tee -a "${InstallationLog}"
 
             sed -i 's|^spotify_path\s*=\s*.*|spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/|' "${SPICETIFY_PATH}"
             _IsAdded "spotify_path           = \$HOME/.local/share/spotify-launcher/install/usr/share/spotify/" "${SPICETIFY_PATH}"
@@ -86,22 +86,22 @@ if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
 
             mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
 
-            spicetify backup apply >>"${INSTALL_LOG}" 2>&1
+            spicetify backup apply >>"${InstallationLog}" 2>&1
 
             mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
 
             for FILE in "${COMFY_LIST[@]}"; do
-                echo -e "[${BLUE}NOTE${RC}] - Downloading file ${FILE}..." 2>&1 | tee -a "${INSTALL_LOG}"
+                echo -e "[${BLUE}NOTE${RC}] - Downloading file ${FILE}..." 2>&1 | tee -a "${InstallationLog}"
                 if curl -s "${SPOTIFY_THEME_URL}/${FILE}" -o "${SPICETIFY_DIR}/Themes/Comfy/${FILE}"; then
-                    echo -e "${CL}[${GREEN}OK${RC}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy" 2>&1 | tee -a "${INSTALL_LOG}"
+                    echo -e "${CL}[${GREEN}OK${RC}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy" 2>&1 | tee -a "${InstallationLog}"
                 else
-                    echo -e "${CL}[${RED}ERROR${RC}] - download failed." 2>&1 | tee -a "${INSTALL_LOG}"
+                    echo -e "${CL}[${RED}ERROR${RC}] - download failed." 2>&1 | tee -a "${InstallationLog}"
                 fi
             done
 
             spicetify config current_theme Comfy color_scheme catppuccin-mocha
             spicetify config inject_css 1 replace_colors 1 overwrite_assets 1 inject_theme_js 1
-            spicetify apply >>"${INSTALL_LOG}" 2>&1
+            spicetify apply >>"${InstallationLog}" 2>&1
         fi
     fi
 fi
@@ -120,10 +120,10 @@ done
 #               Install Tokyo Night VSCode extension                #
 # ----------------------------------------------------------------- #
 if _IsInstalled code; then
-    echo -e "[${BLUE}NOTE${RC}] - Installing VS Code Tokyo Night extension..." 2>&1 | tee -a "${INSTALL_LOG}"
-    if code --install-extension enkia.tokyo-night >>"${INSTALL_LOG}" 2>&1; then
-        echo -e "${CL}[${GREEN}OK${RC}] - Extension successfully installed" 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "[${BLUE}NOTE${RC}] - Installing VS Code Tokyo Night extension..." 2>&1 | tee -a "${InstallationLog}"
+    if code --install-extension enkia.tokyo-night >>"${InstallationLog}" 2>&1; then
+        echo -e "${CL}[${GREEN}OK${RC}] - Extension successfully installed" 2>&1 | tee -a "${InstallationLog}"
     else
-        echo -e "${CL}[${RED}ERROR${RC}] - Extension not installed" 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "${CL}[${RED}ERROR${RC}] - Extension not installed" 2>&1 | tee -a "${InstallationLog}"
     fi
 fi

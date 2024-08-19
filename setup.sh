@@ -4,7 +4,7 @@
 #               Set Global Variables                #
 # ------------------------------------------------- #
 declare -r DownloadDirectory="/tmp/hypr-arch"
-INSTALL_LOG="${DownloadDirectory}/install-$(date +"%Y-%m-%d-%H").log"
+declare -r InstallationLog="${DownloadDirectory}/install-$(date +"%Y-%m-%d-%H").log"
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
@@ -101,10 +101,10 @@ if [ -d "${DownloadDirectory}/install" ]; then
         chmod a+x 00-install.sh
         source ./00-install.sh
     else
-        echo -e "[${RED}ERROR${RC}] - 00-install.sh not found" 2>&1 | tee -a "${INSTALL_LOG}"
+        echo -e "[${RED}ERROR${RC}] - 00-install.sh not found" 2>&1 | tee -a "${InstallationLog}"
         exit 1
     fi
 else
-    echo -e "[${RED}ERROR${RC}] - Directory not found or inaccessible" 2>&1 | tee -a "${INSTALL_LOG}"
+    echo -e "[${RED}ERROR${RC}] - Directory not found or inaccessible" 2>&1 | tee -a "${InstallationLog}"
     exit 1
 fi

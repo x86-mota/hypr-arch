@@ -14,11 +14,11 @@ fi
 # --------------------------------------------------------- #
 GTK_THEME_URL="https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git"
 GTK_THEME_NAME=$(basename ${GTK_THEME_URL%.git})
-GTK_THEME_PATH="${ARCH_SETUP_DIR}/${GTK_THEME_NAME}/themes/install.sh"
+GTK_THEME_PATH="${DownloadDirectory}/${GTK_THEME_NAME}/themes/install.sh"
 
 echo -e "\n[${BLUE}NOTE${RC}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee -a "${INSTALL_LOG}"
 
-_CloneRepository "${GTK_THEME_URL}" "${ARCH_SETUP_DIR}/${GTK_THEME_NAME}"
+_CloneRepository "${GTK_THEME_URL}" "${DownloadDirectory}/${GTK_THEME_NAME}"
 
 bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${INSTALL_LOG}"
 

@@ -3,8 +3,8 @@
 # ------------------------------------------------- #
 #               Set Global Variables                #
 # ------------------------------------------------- #
-ARCH_SETUP_DIR="$HOME/Downloads/hypr-arch"
-INSTALL_LOG="${ARCH_SETUP_DIR}/install-$(date +"%Y-%m-%d-%H").log"
+declare -r DownloadDirectory="/tmp/hypr-arch"
+INSTALL_LOG="${DownloadDirectory}/install-$(date +"%Y-%m-%d-%H").log"
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
@@ -78,24 +78,24 @@ INSTALL_FOLDERS=(
     install
 )
 
-if [ -d "$ARCH_SETUP_DIR" ]; then
-    rm -rf "$ARCH_SETUP_DIR"
+if [ -d "$DownloadDirectory" ]; then
+    rm -rf "$DownloadDirectory"
 fi
 
 echo -e "[${BLUE}NOTE${RC}] - Downloading installation files..."
-if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${ARCH_SETUP_DIR}"; then
-    cd "${ARCH_SETUP_DIR}" || exit
+if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${DownloadDirectory}"; then
+    cd "${DownloadDirectory}" || exit
     for FOLDER in "${INSTALL_FOLDERS[@]}"; do
         git checkout HEAD -- "$FOLDER"
     done
-    echo -e "${CL}[${GREEN}OK${RC}] - Installation files downloaded into ${ARCH_SETUP_DIR}."
+    echo -e "${CL}[${GREEN}OK${RC}] - Installation files downloaded into ${DownloadDirectory}."
 fi
 
 # ------------------------------------------------------------------------------------- #
 #               Enter the install directory and set executable permissions              #
 # ------------------------------------------------------------------------------------- #
-if [ -d "${ARCH_SETUP_DIR}/install" ]; then
-    cd "${ARCH_SETUP_DIR}/install" || exit
+if [ -d "${DownloadDirectory}/install" ]; then
+    cd "${DownloadDirectory}/install" || exit
 
     if [ -f ./00-install.sh ]; then
         chmod a+x 00-install.sh

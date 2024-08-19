@@ -37,7 +37,7 @@ MAKEPKG_PATH="/etc/makepkg.conf"
 NUM_CORES=$(nproc)
 PROC="-j$((NUM_CORES >= 6 ? NUM_CORES - 2 : NUM_CORES))"
 
-echo -e "\n[${BLUE}NOTE${RC}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${InstallationLog}"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${InstallationLog}"
 sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_PATH}"
 if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
     source "${MAKEPKG_PATH}"
@@ -50,13 +50,13 @@ AUR_HELPER_LIST=("paru" "yay")
 for HELPR in "${AUR_HELPER_LIST[@]}"; do
     if _IsInstalled "$HELPR" &>/dev/null; then
         AUR_HELPER="$HELPR"
-        echo -e "\n[${BLUE}NOTE${RC}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "\n[${BoldBlue}NOTE${Reset}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${InstallationLog}"
         break
     fi
 done
 
 if [ -z "$AUR_HELPER" ]; then
-    echo -e "\n${YELLOW}ACTION${RC} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
+    echo -e "\n${BoldYellow}ACTION${Reset} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
     read -rp "Enter your choice [1-2]: "
     case "$REPLY" in
     1)
@@ -69,7 +69,7 @@ if [ -z "$AUR_HELPER" ]; then
         AUR_HELPER="yay"
         ;;
     esac
-    echo -e "${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${InstallationLog}"
+    echo -e "${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${InstallationLog}"
 
     if _CheckFileExist "./05-aurhelper.sh"; then
         source ./05-aurhelper.sh
@@ -79,7 +79,7 @@ fi
 # ------------------------------------------------------------------------- #
 #               Let the user choose which graphics card to use              #
 # ------------------------------------------------------------------------- #
-echo -e "\n[${YELLOW}ACTION${RC}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
+echo -e "\n[${BoldYellow}ACTION${Reset}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
 read -rp "Enter your choice [1-3]: "
 case "$REPLY" in
 1)
@@ -99,7 +99,7 @@ case "$REPLY" in
     GPU_PACKAGES=("${AMD[@]}")
     ;;
 esac
-echo -e "${CL}${CL}${CL}${CL}${CL}[${BLUE}NOTE${RC}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${InstallationLog}"
+echo -e "${Clear}${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${InstallationLog}"
 
 if _CheckFileExist "./06-graphics.sh"; then
     source ./06-graphics.sh
@@ -108,7 +108,7 @@ fi
 # ------------------------------------------------- #
 #               Install System Packages             #
 # ------------------------------------------------- #
-echo -e "\n[${BLUE}NOTE${RC}] - Installing system packages"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Installing system packages"
 for PKG in "${SYSTEM[@]}"; do
     _InstallPackage "${PKG}"
 done
@@ -116,10 +116,10 @@ done
 # ---------------------------------------------------------------#
 #               Copy configuration and script files              #
 # ---------------------------------------------------------------#
-echo -e "\n[${BLUE}NOTE${RC}] - Copying configuration files..." 2>&1 | tee -a "${InstallationLog}"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Copying configuration files..." 2>&1 | tee -a "${InstallationLog}"
 _CopyFiles "${DownloadDirectory}/config/.config" "${HOME}/.config"
 
-echo -e "\n[${BLUE}NOTE${RC}] - Copying scripts..." 2>&1 | tee -a "${InstallationLog}"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Copying scripts..." 2>&1 | tee -a "${InstallationLog}"
 _CopyFiles "${DownloadDirectory}/config/.local" "${HOME}/.local"
 
 # --------------------------------------------------------------------- #
@@ -144,8 +144,8 @@ sudo systemctl enable ly.service &>>"${InstallationLog}"
 # ------------------------------------------------- #
 #               Setup completed message             #
 # ------------------------------------------------- #
-echo -e "[${GREEN}OK${RC}] - Installation Completed\n"
-echo -en "[${YELLOW}ACTION${RC}] - Would you like to reboot now? (y/n): "
+echo -e "[${BoldGreen}OK${Reset}] - Installation Completed\n"
+echo -en "[${BoldYellow}ACTION${Reset}] - Would you like to reboot now? (y/n): "
 read
 if [[ "$REPLY" =~ [Yy]$ ]]; then
     systemctl reboot

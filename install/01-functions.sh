@@ -6,10 +6,10 @@
 function _IsAdded {
     VALUE="${1/^/}"
     if grep -qw -- "$1" "$2"; then
-        echo -e "[${GREEN}OK${RC}] - '${VALUE}' successfully added to $2" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldGreen}OK${Reset}] - '${VALUE}' successfully added to $2" 2>&1 | tee -a "${InstallationLog}"
         return 0
     else
-        echo -e "[${RED}ERROR${RC}] - '${VALUE}' was not added to the file $2" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldRed}ERROR${Reset}] - '${VALUE}' was not added to the file $2" 2>&1 | tee -a "${InstallationLog}"
         return 1
     fi
 }
@@ -53,25 +53,25 @@ function _IsAURAvailable {
 function _InstallPackage {
     if ! _IsInstalled "$1"; then
         if _IsPacmanAvailable "$1"; then
-            echo -e "[${BLUE}NOTE${RC}] - Installing $1..." 2>&1 | tee -a "${InstallationLog}"
+            echo -e "[${BoldBlue}NOTE${Reset}] - Installing $1..." 2>&1 | tee -a "${InstallationLog}"
             sudo pacman -S --noconfirm --needed "$1" &>>"${InstallationLog}"
 
         elif _IsAURAvailable "$1"; then
-            echo -e "[${BLUE}NOTE${RC}] - Installing $1 from AUR. This may take a while..." 2>&1 | tee -a "${InstallationLog}"
+            echo -e "[${BoldBlue}NOTE${Reset}] - Installing $1 from AUR. This may take a while..." 2>&1 | tee -a "${InstallationLog}"
             ${AUR_HELPER} -S --noconfirm --needed "$1" &>>"${InstallationLog}"
         else
-            echo -e "${CL}[${RED}ERROR${RC}] - Unknown package $1." 2>&1 | tee -a "${InstallationLog}"
+            echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Unknown package $1." 2>&1 | tee -a "${InstallationLog}"
             return
         fi
 
         if _IsInstalled "$1"; then
-            echo -e "${CL}[${GREEN}OK${RC}] - $1 installed." 2>&1 | tee -a "${InstallationLog}"
+            echo -e "${Clear}[${BoldGreen}OK${Reset}] - $1 installed." 2>&1 | tee -a "${InstallationLog}"
         else
-            echo -e "${CL}[${RED}ERROR${RC}] - $1 install had failed, please check the install.log" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "${Clear}[${BoldRed}ERROR${Reset}] - $1 install had failed, please check the install.log" 2>&1 | tee -a "${InstallationLog}"
             exit 1
         fi
     else
-        echo -e "[${BLUE}NOTE${RC}] - $1 already installed." 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldBlue}NOTE${Reset}] - $1 already installed." 2>&1 | tee -a "${InstallationLog}"
     fi
 }
 
@@ -86,9 +86,9 @@ function _CopyFiles {
     
     for ITEM in "${SOURCE_DIR}"/*; do
          if cp -r "${SOURCE_DIR}/${ITEM##*/}" "${DEST_DIR}"; then
-            echo -e "[${GREEN}OK${RC}] - File copied: ${ITEM##*/} to ${DEST_DIR}" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "[${BoldGreen}OK${Reset}] - File copied: ${ITEM##*/} to ${DEST_DIR}" 2>&1 | tee -a "${InstallationLog}"
         else
-            echo -e "[${RED}ERROR${RC}] - Failed to copy file: ${ITEM##*/}" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "[${BoldRed}ERROR${Reset}] - Failed to copy file: ${ITEM##*/}" 2>&1 | tee -a "${InstallationLog}"
         fi
     done
 }
@@ -109,15 +109,15 @@ function _CloneRepository {
     fi
 
     if git ls-remote --exit-code "$URL" &>>"${InstallationLog}"; then
-        echo -e "[${BLUE}NOTE${RC}] - Cloning ${URL} repository..." 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldBlue}NOTE${Reset}] - Cloning ${URL} repository..." 2>&1 | tee -a "${InstallationLog}"
         if git clone "${URL}" "${TARGET_DIR}" &>>"${InstallationLog}"; then
-            echo -e "${CL}[${GREEN}OK${RC}] - Cloned repository ${URL}" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "${Clear}[${BoldGreen}OK${Reset}] - Cloned repository ${URL}" 2>&1 | tee -a "${InstallationLog}"
         else
-            echo -e "${CL}[${RED}ERROR${RC}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${InstallationLog}"
             exit 1
         fi
     else
-        echo -e "${CL}[${RED}ERROR${RC}] - The repository ${URL} does not exist." 2>&1 | tee -a "${InstallationLog}"
+        echo -e "${Clear}[${BoldRed}ERROR${Reset}] - The repository ${URL} does not exist." 2>&1 | tee -a "${InstallationLog}"
         exit 1
     fi
 }

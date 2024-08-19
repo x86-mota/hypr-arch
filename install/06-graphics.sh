@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-echo -e "[${BLUE}NOTE${RC}] - Installing ${GRAPHICS_CARD} packages..." 2>&1 | tee -a "${InstallationLog}"
+echo -e "[${BoldBlue}NOTE${Reset}] - Installing ${GRAPHICS_CARD} packages..." 2>&1 | tee -a "${InstallationLog}"
 
 # --------------------------------------------- #
 #               Get kernel headers              #
 # --------------------------------------------- #
 for KRNL in $(cat /usr/lib/modules/*/pkgbase); do
     GPU_PACKAGES+=("${KRNL}-headers")
-    echo -e "[${BLUE}NOTE${RC}] - ${KRNL}-headers added to installation list" 2>&1 | tee -a "${InstallationLog}"
+    echo -e "[${BoldBlue}NOTE${Reset}] - ${KRNL}-headers added to installation list" 2>&1 | tee -a "${InstallationLog}"
 done
 
 # ----------------------------------------------------- #

@@ -25,7 +25,7 @@ function _AdditionalLayouts {
                 KB_LAYOUT+=("${i}")
             fi
         else
-            echo -e "[${RED}ERROR${RC}] Layout '${i}' not found in the valid list."
+            echo -e "[${BoldRed}ERROR${Reset}] Layout '${i}' not found in the valid list."
             return 1
         fi
     done
@@ -57,28 +57,28 @@ if [ -f "${KB_LAYOUT_FILE}" ]; then
     KB_LAYOUT=()
 
     while true; do
-        echo -en "[${YELLOW}ACTION${RC}] - Which main keyboard layout? (default = us ): "
+        echo -en "[${BoldYellow}ACTION${Reset}] - Which main keyboard layout? (default = us ): "
         read
         if [ -z "${REPLY}" ]; then
             KB_LAYOUT=("us")
-            echo -e "${CL}[${BLUE}NOTE${RC}] - Keeping default keyboard layout: us"
+            echo -e "${Clear}[${BoldBlue}NOTE${Reset}] - Keeping default keyboard layout: us"
             break
         else
             if _IsLayoutValid "${REPLY}"; then
                 KB_LAYOUT=("${REPLY}")
-                echo -e "${CL}[${GREEN}OK${RC}] - Main keyboard layout '${REPLY}' added successfully"
+                echo -e "${Clear}[${BoldGreen}OK${Reset}] - Main keyboard layout '${REPLY}' added successfully"
                 break
             else
-                echo -e "${CL}[${RED}ERROR${RC}] Layout '${REPLY}' not found. Please try again."
+                echo -e "${Clear}[${BoldRed}ERROR${Reset}] Layout '${REPLY}' not found. Please try again."
             fi
         fi
     done
 
-    echo -en "[${YELLOW}ACTION${RC}] - Would you like to add more keyboard layouts? (y/n): "
+    echo -en "[${BoldYellow}ACTION${Reset}] - Would you like to add more keyboard layouts? (y/n): "
     read
     if [[ "${REPLY}" =~ [Yy]$ ]]; then
         while true; do
-            echo -en "[${YELLOW}ACTION${RC}] - Please enter additional keyboard layouts separated by commas: "
+            echo -en "[${BoldYellow}ACTION${Reset}] - Please enter additional keyboard layouts separated by commas: "
             read
             if _AdditionalLayouts "${REPLY}"; then
                 sed -i "s/kb_layout = .*/kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')/" "${HYPR_DIR}/theme.conf"
@@ -96,7 +96,7 @@ fi
 #               Adicional Settings for NVIDIA users             #
 # ------------------------------------------------------------- #
 if [[ ${GRAPHICS_CARD} = "Nvidia" ]]; then
-    echo -e "\n[${BLUE}NOTE${RC}] - Applying settings for nvidia..."
+    echo -e "\n[${BoldBlue}NOTE${Reset}] - Applying settings for nvidia..."
     sed -i "s|^#\(.*source = ~/.config/hypr/nvidia.conf.*\)|\1|" "${HYPR_DIR}/hyprland.conf"
     _IsAdded "source = ~/.config/hypr/nvidia.conf" "${HYPR_DIR}/hyprland.conf"
 

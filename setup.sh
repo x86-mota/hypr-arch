@@ -5,13 +5,13 @@
 # ------------------------------------------------- #
 declare -r DownloadDirectory="/tmp/hypr-arch"
 declare -r InstallationLog="${DownloadDirectory}/install-$(date +"%Y-%m-%d-%H").log"
-RED='\033[1;31m'
-GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[1;34m'
-RC='\033[0m'
-CL='\033[1A\033[K'
-ASCII_ART="${GREEN}
+declare -r BoldRed='\033[1;31m'
+declare -r BoldGreen='\033[1;32m'
+declare -r BoldYellow='\033[1;33m'
+declare -r BoldBlue='\033[1;34m'
+declare -r Reset='\033[0m'
+declare -r Clear='\033[1A\033[K'
+ASCII_ART="${BoldGreen}
 
                     -@                           
                    .##@                          
@@ -29,7 +29,7 @@ ASCII_ART="${GREEN}
       @H@*\`                    \`*%#@                              ,V       MM                                               
      *\`                            \`*                          OOb\"      .JMML.                                             
 
-${RC}"
+${Reset}"
 
 # ------------------------------------------------- #
 #               Checks if file exists               #
@@ -38,7 +38,7 @@ function _CheckFileExist {
     if [ -f "$1" ]; then
         return 0
     else
-        echo -e "[${RED}ERROR${RC}] - file '$1' not found."
+        echo -e "[${BoldRed}ERROR${Reset}] - file '$1' not found."
         exit 1
     fi
 }
@@ -56,7 +56,7 @@ echo -e "${ASCII_ART}"
 if [ -f /etc/os-release ]; then
     source /etc/os-release
     if [ ! "${ID}" == "arch" ]; then
-        echo -e "[${RED}ERROR${RC}] - It seems that the system is not ArchLinux. Aborting..."
+        echo -e "[${BoldRed}ERROR${Reset}] - It seems that the system is not ArchLinux. Aborting..."
         exit 1
     fi
 fi
@@ -65,7 +65,7 @@ fi
 #               Checks if the current user has sudo privileges              #
 # ------------------------------------------------------------------------- #
 if ! sudo -l >/dev/null 2>&1; then
-    echo -e "[${RED}ERROR${RC}] - You need to have sudo privileges to run this script!"
+    echo -e "[${BoldRed}ERROR${Reset}] - You need to have sudo privileges to run this script!"
     exit 1
 fi
 
@@ -82,13 +82,13 @@ if [ -d "$DownloadDirectory" ]; then
     rm -rf "$DownloadDirectory"
 fi
 
-echo -e "[${BLUE}NOTE${RC}] - Downloading installation files..."
+echo -e "[${BoldBlue}NOTE${Reset}] - Downloading installation files..."
 if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${DownloadDirectory}"; then
     cd "${DownloadDirectory}" || exit
     for FOLDER in "${INSTALL_FOLDERS[@]}"; do
         git checkout HEAD -- "$FOLDER"
     done
-    echo -e "${CL}[${GREEN}OK${RC}] - Installation files downloaded into ${DownloadDirectory}."
+    echo -e "${Clear}[${BoldGreen}OK${Reset}] - Installation files downloaded into ${DownloadDirectory}."
 fi
 
 # ------------------------------------------------------------------------------------- #
@@ -101,10 +101,10 @@ if [ -d "${DownloadDirectory}/install" ]; then
         chmod a+x 00-install.sh
         source ./00-install.sh
     else
-        echo -e "[${RED}ERROR${RC}] - 00-install.sh not found" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldRed}ERROR${Reset}] - 00-install.sh not found" 2>&1 | tee -a "${InstallationLog}"
         exit 1
     fi
 else
-    echo -e "[${RED}ERROR${RC}] - Directory not found or inaccessible" 2>&1 | tee -a "${InstallationLog}"
+    echo -e "[${BoldRed}ERROR${Reset}] - Directory not found or inaccessible" 2>&1 | tee -a "${InstallationLog}"
     exit 1
 fi

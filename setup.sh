@@ -77,7 +77,7 @@ INSTALL_FOLDERS=(
 )
 
 if [ -d "$DownloadDirectory" ]; then
-    rm -rf "$DownloadDirectory"
+    sudo rm -rf "$DownloadDirectory"
 fi
 
 echo -e "[${BoldBlue}NOTE${Reset}] - Downloading installation files..."

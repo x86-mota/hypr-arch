@@ -4,7 +4,7 @@
 #               Set Global Variables                #
 # ------------------------------------------------- #
 declare -r DownloadDirectory="/tmp/hypr-arch"
-declare -r InstallationLog="${DownloadDirectory}/install-$(date +"%Y-%m-%d-%H").log"
+declare -r InstallationLog="${HOME}/install-$(date +"%Y-%m-%d-%H").log"
 declare -r BoldRed='\033[1;31m'
 declare -r BoldGreen='\033[1;32m'
 declare -r BoldYellow='\033[1;33m'
@@ -70,23 +70,16 @@ fi
 # ----------------------------------------------------------------- #
 #               Download files from remote repository               #
 # ----------------------------------------------------------------- #
-INSTALL_FOLDERS=(
-    assets
-    config
-    install
-)
+[ -d "${DownloadDirectory}" ] && sudo rm -rf "${DownloadDirectory}"
 
-if [ -d "$DownloadDirectory" ]; then
-    sudo rm -rf "$DownloadDirectory"
-fi
-
-echo -e "[${BoldBlue}NOTE${Reset}] - Downloading installation files..."
-if git clone -nq https://github.com/x86-mota/hyrp-arch.git "${DownloadDirectory}"; then
+echo -e "[${BoldBlue}NOTE${Reset}] - Downloading installation files..." 2>&1 | tee -a "${InstallationLog}"
+if git clone -n https://github.com/x86-mota/hyrp-arch.git "${DownloadDirectory}" >>"${InstallationLog}" 2>&1; then
+    Folders=(assets config install)
     cd "${DownloadDirectory}" || exit
-    for FOLDER in "${INSTALL_FOLDERS[@]}"; do
-        git checkout HEAD -- "$FOLDER"
+    for f in "${Folders[@]}"; do
+        git checkout HEAD -- "${f}"
     done
-    echo -e "${Clear}[${BoldGreen}OK${Reset}] - Installation files downloaded into ${DownloadDirectory}."
+    echo -e "${Clear}[${BoldGreen}OK${Reset}] - Installation files downloaded into ${DownloadDirectory}." 2>&1 | tee -a "${InstallationLog}"
 fi
 
 # ------------------------------------------------------------------------------------- #

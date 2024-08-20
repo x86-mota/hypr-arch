@@ -4,7 +4,7 @@
 #               Packages Lists              #
 # ----------------------------------------- #
 
-AMD=(
+Amd=(
     libva-mesa-driver
     mesa
     mesa-vdpau
@@ -18,7 +18,7 @@ AMD=(
     xf86-video-amdgpu
 )
 
-INTEL=(
+Intel=(
     mesa
     vulkan-intel
     lib32-mesa
@@ -26,7 +26,7 @@ INTEL=(
     xf86-video-intel
 )
 
-NVIDIA=(
+Nvidia=(
     libva
     libva-nvidia-driver
     mesa
@@ -40,7 +40,7 @@ NVIDIA=(
     lib32-vulkan-icd-loader
 )
 
-SYSTEM=(
+System=(
     ark
     bash-completion
     bibata-cursor-theme

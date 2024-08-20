@@ -93,9 +93,9 @@ if [ -f "${KB_LAYOUT_FILE}" ]; then
 fi
 
 # ------------------------------------------------------------- #
-#               Adicional Settings for NVIDIA users             #
+#               Adicional Settings for Nvidia users             #
 # ------------------------------------------------------------- #
-if [[ ${GRAPHICS_CARD} = "Nvidia" ]]; then
+if [[ ${GraphicsCard} = "Nvidia" ]]; then
     echo -e "\n[${BoldBlue}NOTE${Reset}] - Applying settings for nvidia..."
     sed -i "s|^#\(.*source = ~/.config/hypr/nvidia.conf.*\)|\1|" "${HYPR_DIR}/hyprland.conf"
     _IsAdded "source = ~/.config/hypr/nvidia.conf" "${HYPR_DIR}/hyprland.conf"

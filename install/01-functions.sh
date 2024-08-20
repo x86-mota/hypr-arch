@@ -44,7 +44,7 @@ function _IsPacmanAvailable {
 # ----------------------------------------------------------------------------- #
 function _IsAURAvailable {
     local Package="$1"
-    if ${AUR_HELPER} -Si "${Package}" &>/dev/null; then
+    if ${AurHelper} -Si "${Package}" &>/dev/null; then
         return 0
     else
         return 1
@@ -62,7 +62,7 @@ function _InstallPackage {
 
         elif _IsAURAvailable "$1"; then
             echo -e "[${BoldBlue}NOTE${Reset}] - Installing $1 from AUR. This may take a while..." 2>&1 | tee -a "${InstallationLog}"
-            ${AUR_HELPER} -S --noconfirm --needed "$1" &>>"${InstallationLog}"
+            ${AurHelper} -S --noconfirm --needed "$1" &>>"${InstallationLog}"
         else
             echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Unknown package $1." 2>&1 | tee -a "${InstallationLog}"
             return

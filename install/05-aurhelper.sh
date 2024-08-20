@@ -3,11 +3,11 @@
 # --------------------------------------------- #
 #               Install AUR Helper              #
 # --------------------------------------------- #
-echo -e "[${BoldBlue}NOTE${Reset}] - Installing AUR helper ${AUR_HELPER}..." 2>&1 | tee -a "${InstallationLog}"
+echo -e "[${BoldBlue}NOTE${Reset}] - Installing AUR helper ${AurHelper}..." 2>&1 | tee -a "${InstallationLog}"
 
-_CloneRepository "https://aur.archlinux.org/${AUR_HELPER}.git" "${DownloadDirectory}/${AUR_HELPER}"
+_CloneRepository "https://aur.archlinux.org/${AurHelper}.git" "${DownloadDirectory}/${AurHelper}"
 
-cd "${DownloadDirectory}/${AUR_HELPER}" || exit
+cd "${DownloadDirectory}/${AurHelper}" || exit
 
 if ! _IsInstalled base-devel; then
     _InstallPackage base-devel
@@ -15,11 +15,11 @@ fi
 
 makepkg --noconfirm -si &>>"${InstallationLog}"
 
-if _IsInstalled "${AUR_HELPER}"; then
-    "${AUR_HELPER}" -Syu --noconfirm &>>"${InstallationLog}"
-    echo -e "${Clear}[${BoldGreen}OK${Reset}] - ${AUR_HELPER} installed" 2>&1 | tee -a "${InstallationLog}"
+if _IsInstalled "${AurHelper}"; then
+    "${AurHelper}" -Syu --noconfirm &>>"${InstallationLog}"
+    echo -e "${Clear}[${BoldGreen}OK${Reset}] - ${AurHelper} installed" 2>&1 | tee -a "${InstallationLog}"
 else
-    echo -e "${Clear}[${BoldRed}ERROR${Reset}] - ${AUR_HELPER} installation failed." 2>&1 | tee -a "${InstallationLog}"
+    echo -e "${Clear}[${BoldRed}ERROR${Reset}] - ${AurHelper} installation failed." 2>&1 | tee -a "${InstallationLog}"
     exit 1
 fi
 

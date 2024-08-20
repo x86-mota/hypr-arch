@@ -3,38 +3,38 @@
 # --------------------------------------------------------------------- #
 #               Uncomment lines if they are commented out               #
 # --------------------------------------------------------------------- #
-PACMAN_PATH="/etc/pacman.conf"
-MISC_OPTIONS=(Color CheckSpace VerbosePkgLists ParallelDownloads)
+PacmanConfPath="/etc/pacman.conf"
+MiscOptions=(Color CheckSpace VerbosePkgLists ParallelDownloads)
 
-echo -e "\n[${BoldBlue}NOTE${Reset}] - Adding extra spice to ${PACMAN_PATH}" 2>&1 | tee -a "${InstallationLog}"
-for MISC in "${MISC_OPTIONS[@]}"; do
-    if grep -wq "^#${MISC}" "${PACMAN_PATH}"; then
-        sudo sed -i "s/^#${MISC}/${MISC}/" "${PACMAN_PATH}"
-        _IsAdded "^${MISC}" "${PACMAN_PATH}"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Adding extra spice to ${PacmanConfPath}" 2>&1 | tee -a "${InstallationLog}"
+for Misc in "${MiscOptions[@]}"; do
+    if grep -wq "^#${Misc}" "${PacmanConfPath}"; then
+        sudo sed -i "s/^#${Misc}/${Misc}/" "${PacmanConfPath}"
+        _IsAdded "^${Misc}" "${PacmanConfPath}"
     else
-        echo -e "[${BoldBlue}NOTE${Reset}] - ${MISC} is already added to ${PACMAN_PATH}." 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldBlue}NOTE${Reset}] - ${Misc} is already added to ${PacmanConfPath}." 2>&1 | tee -a "${InstallationLog}"
     fi
 done
 
 # ----------------------------------------------------------------------------------------------------------------------------------------- #
 #               Insert ILoveCandy below Color if it is not already present. This parameter is cool and useless at the same time             #
 # ----------------------------------------------------------------------------------------------------------------------------------------- #
-if ! grep -wq '^ILoveCandy' "${PACMAN_PATH}"; then
-    sudo sed -i "/Color/a ILoveCandy" "${PACMAN_PATH}"
-    _IsAdded "^ILoveCandy" "${PACMAN_PATH}"
+if ! grep -wq '^ILoveCandy' "${PacmanConfPath}"; then
+    sudo sed -i "/Color/a ILoveCandy" "${PacmanConfPath}"
+    _IsAdded "^ILoveCandy" "${PacmanConfPath}"
 else
-    echo -e "[${BoldBlue}NOTE${Reset}] - ILoveCandy is already added to ${PACMAN_PATH}." 2>&1 | tee -a "${InstallationLog}"
+    echo -e "[${BoldBlue}NOTE${Reset}] - ILoveCandy is already added to ${PacmanConfPath}." 2>&1 | tee -a "${InstallationLog}"
 fi
 
 # --------------------------------------------------------------------- #
 #               Enable multilib repository if not already               #
 # --------------------------------------------------------------------- #
-if grep -q '^#\[multilib\]' "${PACMAN_PATH}"; then
+if grep -q '^#\[multilib\]' "${PacmanConfPath}"; then
     echo -e "[${BoldBlue}NOTE${Reset}] - Enabling multilib repository..." 2>&1 | tee -a "${InstallationLog}"
 
-    sudo sed -i "/^#\[multilib\]/,+1 s/^#//" ${PACMAN_PATH}
+    sudo sed -i "/^#\[multilib\]/,+1 s/^#//" ${PacmanConfPath}
 
-    if grep -q '^\[multilib\]' "${PACMAN_PATH}" && grep -A 1 '^\[multilib\]' "${PACMAN_PATH}" | grep -q '^Include'; then
+    if grep -q '^\[multilib\]' "${PacmanConfPath}" && grep -A 1 '^\[multilib\]' "${PacmanConfPath}" | grep -q '^Include'; then
         echo -e "${Clear}[${BoldGreen}OK${Reset}] - multilib repository enabled" 2>&1 | tee -a "${InstallationLog}"
     else
         echo -e "${Clear}[${BoldRed}ERROR${Reset}] - multilib repository was not enabled" 2>&1 | tee -a "${InstallationLog}"

@@ -12,46 +12,46 @@ fi
 # --------------------------------------------------------- #
 #               Install Tokyo Night GTK Theme               #
 # --------------------------------------------------------- #
-GTK_THEME_URL="https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git"
-GTK_THEME_NAME=$(basename ${GTK_THEME_URL%.git})
-GTK_THEME_PATH="${DownloadDirectory}/${GTK_THEME_NAME}/themes/install.sh"
+GtkThemeUrl="https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git"
+GtkThemeName=$(basename ${GtkThemeUrl%.git})
+GtkThemePath="${DownloadDirectory}/${GtkThemeName}/themes/install.sh"
 
-echo -e "\n[${BoldBlue}NOTE${Reset}] - Installing ${GTK_THEME_NAME} GTK theme" 2>&1 | tee -a "${InstallationLog}"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Installing ${GtkThemeName} GTK theme" 2>&1 | tee -a "${InstallationLog}"
 
-_CloneRepository "${GTK_THEME_URL}" "${DownloadDirectory}/${GTK_THEME_NAME}"
+_CloneRepository "${GtkThemeUrl}" "${DownloadDirectory}/${GtkThemeName}"
 
-bash "${GTK_THEME_PATH}" --color dark --libadwaita --tweaks black &>>"${InstallationLog}"
+bash "${GtkThemePath}" --color dark --libadwaita --tweaks black &>>"${InstallationLog}"
 
-if [ -d $HOME/.themes/Tokyonight-Dark ]; then
-    echo -e "${Clear}[${BoldGreen}OK${Reset}] - Theme ${GTK_THEME_NAME} installed successfully." 2>&1 | tee -a "${InstallationLog}"
+if [ -d "${HOME}/.themes/Tokyonight-Dark"]; then
+    echo -e "${Clear}[${BoldGreen}OK${Reset}] - Theme ${GtkThemeName} installed successfully." 2>&1 | tee -a "${InstallationLog}"
 else
-    echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Theme ${GTK_THEME_NAME} installation failed." 2>&1 | tee -a "${InstallationLog}"
+    echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Theme ${GtkThemeName} installation failed." 2>&1 | tee -a "${InstallationLog}"
 fi
 
 # ----------------------------------------------------------------------------------------- #
 #               Initiate GTK dark mode and apply icon, cursor theme and fonts               #
 # ----------------------------------------------------------------------------------------- #
-COLOR_SCHEME="prefer-dark"
-GTK_THEME="Tokyonight-Dark"
-ICON_THEME="Papirus-Dark"
-CURSOR_THEME="Bibata-Modern-Ice"
-CURSOR_SIZE="24"
-FONT_NAME="JetBrainsMono Nerd Font 11"
+ColorScheme="prefer-dark"
+GtkTheme="Tokyonight-Dark"
+IconTheme="Papirus-Dark"
+CursorTheme="Bibata-Modern-Ice"
+CursorSize="24"
+FontName="JetBrainsMono Nerd Font 11"
 
-gsettings set org.gnome.desktop.interface color-scheme "${COLOR_SCHEME}"
-gsettings set org.gnome.desktop.interface gtk-theme "${GTK_THEME}"
-gsettings set org.gnome.desktop.interface icon-theme "${ICON_THEME}"
-gsettings set org.gnome.desktop.interface cursor-theme "${CURSOR_THEME}"
-gsettings set org.gnome.desktop.interface cursor-size "${CURSOR_SIZE}"
-gsettings set org.gnome.desktop.interface font-name "${FONT_NAME}"
+gsettings set org.gnome.desktop.interface color-scheme "${ColorScheme}"
+gsettings set org.gnome.desktop.interface gtk-theme "${GtkTheme}"
+gsettings set org.gnome.desktop.interface icon-theme "${IconTheme}"
+gsettings set org.gnome.desktop.interface cursor-theme "${CursorTheme}"
+gsettings set org.gnome.desktop.interface cursor-size "${CursorSize}"
+gsettings set org.gnome.desktop.interface font-name "${FontName}"
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------- #
 #               Sets GTK system theme preferences for Chrome and Brave writing a predefined JSON structure into their 'Preferences' files.              #
 # ----------------------------------------------------------------------------------------------------------------------------------------------------- #
-CHROME_PREFS_PATH="${HOME}/.config/google-chrome/Default"
-BRAVE_PREFS_PATH="${HOME}/.config/BraveSoftware/Brave-Browser/Default"
-PATHS=("${CHROME_PREFS_PATH}" "${BRAVE_PREFS_PATH}")
-PREFERENCES='{
+ChromePreferencesPath="${HOME}/.config/google-chrome/Default"
+BravePreferencesPath="${HOME}/.config/BraveSoftware/Brave-Browser/Default"
+Paths=("${ChromePreferencesPath}" "${BravePreferencesPath}")
+Preferences='{
     "extensions": {
         "theme": {
             "id": "",
@@ -60,9 +60,9 @@ PREFERENCES='{
     }
 }'
 
-for P in "${PATHS[@]}"; do
-    mkdir -p "${P}"
-    echo "${PREFERENCES}" >"${P}/Preferences"
+for p in "${Paths[@]}"; do
+    mkdir -p "${p}"
+    echo "${Preferences}" >"${p}/Preferences"
 done
 
 # ------------------------------------------------- #
@@ -70,30 +70,30 @@ done
 # ------------------------------------------------- #
 if _IsInstalled spotify-launcher && _IsInstalled spicetify; then
     if spicetify -c &>/dev/null; then
-        SPICETIFY_PATH=$(spicetify -c)
-        SPICETIFY_DIR="$(dirname "${SPICETIFY_PATH}")"
-        COMFY_LIST=("color.ini" "user.css" "theme.js")
-        SPOTIFY_THEME_URL="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
+        SpicetifyPath=$(spicetify -c)
+        SpicetifyDirectory="$(dirname "${SpicetifyPath}")"
+        ComfyList=("color.ini" "user.css" "theme.js")
+        SpotifyThemeUrl="https://raw.githubusercontent.com/Comfy-Themes/Spicetify/main/Comfy"
 
-        if [ -f "${SPICETIFY_PATH}" ]; then
+        if [ -f "${SpicetifyPath}" ]; then
             echo -e "\n[${BoldBlue}NOTE${Reset}] - Applying Spotify theme\n" 2>&1 | tee -a "${InstallationLog}"
 
-            sed -i 's|^spotify_path\s*=\s*.*|spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/|' "${SPICETIFY_PATH}"
-            _IsAdded "spotify_path           = \$HOME/.local/share/spotify-launcher/install/usr/share/spotify/" "${SPICETIFY_PATH}"
+            sed -i 's|^spotify_path\s*=\s*.*|spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/|' "${SpicetifyPath}"
+            _IsAdded "spotify_path           = \$HOME/.local/share/spotify-launcher/install/usr/share/spotify/" "${SpicetifyPath}"
 
-            sed -i 's|^prefs_path\s*=\s*.*|prefs_path             = '$HOME'/.config/spotify/prefs|' "${SPICETIFY_PATH}"
-            _IsAdded "prefs_path             = $HOME/.config/spotify/prefs" "${SPICETIFY_PATH}"
+            sed -i 's|^prefs_path\s*=\s*.*|prefs_path             = '$HOME'/.config/spotify/prefs|' "${SpicetifyPath}"
+            _IsAdded "prefs_path             = $HOME/.config/spotify/prefs" "${SpicetifyPath}"
 
             mkdir -p "${HOME}/.local/share/spotify-launcher/install/usr/share/spotify/"
 
             spicetify backup apply >>"${InstallationLog}" 2>&1
 
-            mkdir -p "${SPICETIFY_DIR}/Themes/Comfy"
+            mkdir -p "${SpicetifyDirectory}/Themes/Comfy"
 
-            for FILE in "${COMFY_LIST[@]}"; do
-                echo -e "[${BoldBlue}NOTE${Reset}] - Downloading file ${FILE}..." 2>&1 | tee -a "${InstallationLog}"
-                if curl -s "${SPOTIFY_THEME_URL}/${FILE}" -o "${SPICETIFY_DIR}/Themes/Comfy/${FILE}"; then
-                    echo -e "${Clear}[${BoldGreen}OK${Reset}] - ${FILE} downloaded successfully to ${SPICETIFY_DIR}/Themes/Comfy" 2>&1 | tee -a "${InstallationLog}"
+            for f in "${ComfyList[@]}"; do
+                echo -e "[${BoldBlue}NOTE${Reset}] - Downloading file ${f}..." 2>&1 | tee -a "${InstallationLog}"
+                if curl -s "${SpotifyThemeUrl}/${f}" -o "${SpicetifyDirectory}/Themes/Comfy/${f}"; then
+                    echo -e "${Clear}[${BoldGreen}OK${Reset}] - ${f} downloaded successfully to ${SpicetifyDirectory}/Themes/Comfy" 2>&1 | tee -a "${InstallationLog}"
                 else
                     echo -e "${Clear}[${BoldRed}ERROR${Reset}] - download failed." 2>&1 | tee -a "${InstallationLog}"
                 fi
@@ -109,11 +109,11 @@ fi
 # ------------------------------------------------------------- #
 #               Set COlor Scheme Path for QT Apps               #
 # ------------------------------------------------------------- #
-QT_LIST=("qt5ct" "qt6ct")
-for QT in "${QT_LIST[@]}"; do
-    QT_PATH="${HOME}/.config/${QT}/${QT}.conf"
-    COLOR_SCHEME_PATH="${HOME}/.config/${QT}/colors/Catppuccin-Mocha.conf"
-    sed -i "s|^color_scheme_path=.*|color_scheme_path=${COLOR_SCHEME_PATH}|" "$QT_PATH"
+QtList=("qt5ct" "qt6ct")
+for qt in "${QtList[@]}"; do
+    QtPath="${HOME}/.config/${qt}/${qt}.conf"
+    QtColorsSchemePath="${HOME}/.config/${qt}/colors/Catppuccin-Mocha.conf"
+    sed -i "s|^color_scheme_path=.*|color_scheme_path=${QtColorsSchemePath}|" "$QtPath"
 done
 
 # ----------------------------------------------------------------- #

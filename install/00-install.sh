@@ -33,43 +33,41 @@ fi
 # --------------------------------------------------------------------------------- #
 #               Update makepkg configuration to optimize build threads              #
 # --------------------------------------------------------------------------------- #
-MAKEPKG_PATH="/etc/makepkg.conf"
-NUM_CORES=$(nproc)
-PROC="-j$((NUM_CORES >= 6 ? NUM_CORES - 2 : NUM_CORES))"
-
-echo -e "\n[${BoldBlue}NOTE${Reset}] - Editing ${MAKEPKG_PATH}..." 2>&1 | tee -a "${InstallationLog}"
-sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${PROC}\"/" "${MAKEPKG_PATH}"
-if _IsAdded "${PROC}" "${MAKEPKG_PATH}"; then
-    source "${MAKEPKG_PATH}"
+MakepkgConfPath="/etc/makepkg.conf"
+Processors="-j$(( $(nproc) >= 6 ? $(nproc) - 2 : $(nproc) ))"
+echo -e "\n[${BoldBlue}NOTE${Reset}] - Editing ${MakepkgConfPath}..." 2>&1 | tee -a "${InstallationLog}"
+sudo sed -i "s/^MAKEFLAGS=.*\|^#MAKEFLAGS=.*/MAKEFLAGS=\"${Processors}\"/" "${MakepkgConfPath}"
+if _IsAdded "${Processors}" "${MakepkgConfPath}"; then
+    source "${MakepkgConfPath}"
 fi
 
 # ----------------------------------------------------------------------------------------------------- #
 #               Let the user choose which AUR helper to use if none is already installed                #
 # ----------------------------------------------------------------------------------------------------- #
-AUR_HELPER_LIST=("paru" "yay")
-for HELPR in "${AUR_HELPER_LIST[@]}"; do
-    if _IsInstalled "$HELPR" &>/dev/null; then
-        AUR_HELPER="$HELPR"
-        echo -e "\n[${BoldBlue}NOTE${Reset}] - AUR helper ${AUR_HELPER} found" 2>&1 | tee -a "${InstallationLog}"
+ListAurHelpers=("paru" "yay")
+for h in "${ListAurHelpers[@]}"; do
+    if _IsInstalled "$h" &>/dev/null; then
+        AurHelper="$h"
+        echo -e "\n[${BoldBlue}NOTE${Reset}] - AUR helper ${AurHelper} found" 2>&1 | tee -a "${InstallationLog}"
         break
     fi
 done
 
-if [ -z "$AUR_HELPER" ]; then
+if [ -z "$AurHelper" ]; then
     echo -e "\n${BoldYellow}ACTION${Reset} - Which AUR helper? (default = 1):\n 1) yay\n 2) paru"
     read -rp "Enter your choice [1-2]: "
     case "$REPLY" in
     1)
-        AUR_HELPER="yay"
+        AurHelper="yay"
         ;;
     2)
-        AUR_HELPER="paru"
+        AurHelper="paru"
         ;;
     *)
-        AUR_HELPER="yay"
+        AurHelper="yay"
         ;;
     esac
-    echo -e "${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${AUR_HELPER} Selected" 2>&1 | tee -a "${InstallationLog}"
+    echo -e "${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${AurHelper} Selected" 2>&1 | tee -a "${InstallationLog}"
 
     if _CheckFileExist "./05-aurhelper.sh"; then
         source ./05-aurhelper.sh
@@ -79,27 +77,27 @@ fi
 # ------------------------------------------------------------------------- #
 #               Let the user choose which graphics card to use              #
 # ------------------------------------------------------------------------- #
-echo -e "\n[${BoldYellow}ACTION${Reset}] - Which Graphics Card? (default = 1):\n 1) AMD\n 2) Intel\n 3) Nvidia"
+echo -e "\n[${BoldYellow}ACTION${Reset}] - Which Graphics Card? (default = 1):\n 1) Amd\n 2) Intel\n 3) Nvidia"
 read -rp "Enter your choice [1-3]: "
 case "$REPLY" in
 1)
-    GRAPHICS_CARD="AMD"
-    GPU_PACKAGES=("${AMD[@]}")
+    GraphicsCard="Amd"
+    GraphicsPackages=("${Amd[@]}")
     ;;
 2)
-    GRAPHICS_CARD="Intel"
-    GPU_PACKAGES=("${INTEL[@]}")
+    GraphicsCard="Intel"
+    GraphicsPackages=("${Intel[@]}")
     ;;
 3)
-    GRAPHICS_CARD="Nvidia"
-    GPU_PACKAGES=("${NVIDIA[@]}")
+    GraphicsCard="Nvidia"
+    GraphicsPackages=("${Nvidia[@]}")
     ;;
 *)
-    GRAPHICS_CARD="AMD"
-    GPU_PACKAGES=("${AMD[@]}")
+    GraphicsCard="Amd"
+    GraphicsPackages=("${Amd[@]}")
     ;;
 esac
-echo -e "${Clear}${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${GRAPHICS_CARD} Selected" 2>&1 | tee -a "${InstallationLog}"
+echo -e "${Clear}${Clear}${Clear}${Clear}${Clear}[${BoldBlue}NOTE${Reset}] - ${GraphicsCard} Selected" 2>&1 | tee -a "${InstallationLog}"
 
 if _CheckFileExist "./06-graphics.sh"; then
     source ./06-graphics.sh
@@ -109,7 +107,7 @@ fi
 #               Install System Packages             #
 # ------------------------------------------------- #
 echo -e "\n[${BoldBlue}NOTE${Reset}] - Installing system packages"
-for PKG in "${SYSTEM[@]}"; do
+for PKG in "${System[@]}"; do
     _InstallPackage "${PKG}"
 done
 

@@ -19,7 +19,7 @@ function _CheckFileExist {
     if [ -f "$1" ]; then
         return 0
     else
-        echo -e "[${BoldRed}ERROR${Reset}] - file '$1' not found."
+        echo -e "[${BoldRed}ERROR${Reset}] - file '$1' not found." 2>&1 | tee -a "${InstallationLog}"
         exit 1
     fi
 }
@@ -71,31 +71,28 @@ fi
 #               Download files from remote repository               #
 # ----------------------------------------------------------------- #
 [ -d "${DownloadDirectory}" ] && sudo rm -rf "${DownloadDirectory}"
-
 echo -e "[${BoldBlue}NOTE${Reset}] - Downloading installation files..." 2>&1 | tee -a "${InstallationLog}"
 if git clone -n https://github.com/x86-mota/hyrp-arch.git "${DownloadDirectory}" >>"${InstallationLog}" 2>&1; then
     Folders=(assets config install)
     cd "${DownloadDirectory}" || exit
     for f in "${Folders[@]}"; do
         git checkout HEAD -- "${f}"
+        if [ ! -d "${f}" ]; then
+            echo -e "[${BoldRed}ERROR${Reset}] - ${f} folder download failed." 2>&1 | tee -a "${InstallationLog}"
+            exit 1
+        fi
     done
     echo -e "${Clear}[${BoldGreen}OK${Reset}] - Installation files downloaded into ${DownloadDirectory}." 2>&1 | tee -a "${InstallationLog}"
+else
+    echo -e "[${BoldRed}ERROR${Reset}] - Failed to clone the repository." 2>&1 | tee -a "${InstallationLog}"
+    exit 1
 fi
 
 # ------------------------------------------------------------------------------------- #
 #               Enter the install directory and set executable permissions              #
 # ------------------------------------------------------------------------------------- #
-if [ -d "${DownloadDirectory}/install" ]; then
-    cd "${DownloadDirectory}/install" || exit
-
-    if [ -f ./00-install.sh ]; then
-        chmod a+x 00-install.sh
-        source ./00-install.sh
-    else
-        echo -e "[${BoldRed}ERROR${Reset}] - 00-install.sh not found" 2>&1 | tee -a "${InstallationLog}"
-        exit 1
-    fi
-else
-    echo -e "[${BoldRed}ERROR${Reset}] - Directory not found or inaccessible" 2>&1 | tee -a "${InstallationLog}"
-    exit 1
+cd "${DownloadDirectory}/install" || exit
+if _CheckFileExist "./00-install.sh"; then
+    chmod a+x 00-install.sh
+    source ./00-install.sh
 fi

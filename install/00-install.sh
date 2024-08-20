@@ -107,8 +107,8 @@ fi
 #               Install System Packages             #
 # ------------------------------------------------- #
 echo -e "\n[${BoldBlue}NOTE${Reset}] - Installing system packages"
-for PKG in "${System[@]}"; do
-    _InstallPackage "${PKG}"
+for p in "${System[@]}"; do
+    _InstallPackage "${p}"
 done
 
 # ---------------------------------------------------------------#

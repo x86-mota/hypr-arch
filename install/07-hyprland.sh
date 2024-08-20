@@ -4,10 +4,10 @@
 #               Functions               #
 # --------------------------------------#
 function _IsLayoutValid {
-    local LAYOUT="$1"
+    local Layout="$1"
     local i=""
-    for i in "${KB_LAYOUT_LIST[@]}"; do
-        if [ "$i" == "${LAYOUT}" ]; then
+    for i in "${KeyboardLayoutList[@]}"; do
+        if [ "${i}" == "${Layout}" ]; then
             return 0
         fi
     done
@@ -15,14 +15,14 @@ function _IsLayoutValid {
 }
 
 function _AdditionalLayouts {
-    local NEW_LAYOUTS="$1"
+    local NewLayouts="$1"
     local i=""
-    IFS=',' read -r -a ADDITIONAL_LAYOUTS <<<"${NEW_LAYOUTS}"
-    for i in "${ADDITIONAL_LAYOUTS[@]}"; do
+    IFS=',' read -r -a AdditionalLayouts <<<"${NewLayouts}"
+    for i in "${AdditionalLayouts[@]}"; do
         i=$(echo "${i}" | tr -d '[:blank:]')
         if _IsLayoutValid "${i}"; then
-            if [[ ! "${KB_LAYOUT[@]}" = "${i}" ]]; then
-                KB_LAYOUT+=("${i}")
+            if [[ ! "${KeyboardLayout[@]}" = "${i}" ]]; then
+                KeyboardLayout+=("${i}")
             fi
         else
             echo -e "[${BoldRed}ERROR${Reset}] Layout '${i}' not found in the valid list."
@@ -33,13 +33,13 @@ function _AdditionalLayouts {
 }
 
 # ----------------------------------------------------------------------------------------------------------------- #
-#               Loop through each script file in USER_SCRIPTS_DIR and make them executable for the user             #
+#               Loop through each script file in UserScriptsDirectory and make them executable for the user             #
 # ----------------------------------------------------------------------------------------------------------------- #
-USER_SCRIPTS_DIR="${HOME}/.local/share/bin"
-if [ -d "${USER_SCRIPTS_DIR}" ]; then
-    for SH in "${USER_SCRIPTS_DIR}"/*; do
-        if [ -f "${SH}" ]; then
-            chmod u+x "${SH}"
+UserScriptsDirectory="${HOME}/.local/share/bin"
+if [ -d "${UserScriptsDirectory}" ]; then
+    for sh in "${UserScriptsDirectory}"/*; do
+        if [ -f "${sh}" ]; then
+            chmod u+x "${sh}"
         fi
     done
 fi
@@ -47,25 +47,25 @@ fi
 # --------------------------------------------- #
 #               Set Keyboard Layout             #
 # --------------------------------------------- #
-HYPR_DIR="${HOME}/.config/hypr"
-KB_LAYOUT_FILE="../assets/kblayout.lst"
-if [ -f "${KB_LAYOUT_FILE}" ]; then
+HyprlandDirectory="${HOME}/.config/hypr"
+KeyboardLayoutFile="../assets/kblayout.lst"
+if [ -f "${KeyboardLayoutFile}" ]; then
     echo
-    pr -tw160 -4 <"${KB_LAYOUT_FILE}"
+    pr -tw160 -4 <"${KeyboardLayoutFile}"
     echo
-    KB_LAYOUT_LIST=($(awk -F' ' '{print $1}' <${KB_LAYOUT_FILE}))
-    KB_LAYOUT=()
+    KeyboardLayoutList=($(awk -F' ' '{print $1}' <${KeyboardLayoutFile}))
+    KeyboardLayout=()
 
     while true; do
         echo -en "[${BoldYellow}ACTION${Reset}] - Which main keyboard layout? (default = us ): "
         read
         if [ -z "${REPLY}" ]; then
-            KB_LAYOUT=("us")
+            KeyboardLayout=("us")
             echo -e "${Clear}[${BoldBlue}NOTE${Reset}] - Keeping default keyboard layout: us"
             break
         else
             if _IsLayoutValid "${REPLY}"; then
-                KB_LAYOUT=("${REPLY}")
+                KeyboardLayout=("${REPLY}")
                 echo -e "${Clear}[${BoldGreen}OK${Reset}] - Main keyboard layout '${REPLY}' added successfully"
                 break
             else
@@ -81,14 +81,14 @@ if [ -f "${KB_LAYOUT_FILE}" ]; then
             echo -en "[${BoldYellow}ACTION${Reset}] - Please enter additional keyboard layouts separated by commas: "
             read
             if _AdditionalLayouts "${REPLY}"; then
-                sed -i "s/kb_layout = .*/kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')/" "${HYPR_DIR}/theme.conf"
-                _IsAdded "kb_layout = $(echo ${KB_LAYOUT[*]} | tr ' ' ',')" "${HYPR_DIR}/theme.conf"
+                sed -i "s/kb_layout = .*/kb_layout = $(echo ${KeyboardLayout[*]} | tr ' ' ',')/" "${HyprlandDirectory}/theme.conf"
+                _IsAdded "kb_layout = $(echo ${KeyboardLayout[*]} | tr ' ' ',')" "${HyprlandDirectory}/theme.conf"
                 break
             fi
         done
     else
-        sed -i "s/kb_layout = .*/kb_layout = ${KB_LAYOUT}/" "${HYPR_DIR}/theme.conf"
-        _IsAdded "kb_layout = ${KB_LAYOUT}" "${HYPR_DIR}/theme.conf"
+        sed -i "s/kb_layout = .*/kb_layout = ${KeyboardLayout}/" "${HyprlandDirectory}/theme.conf"
+        _IsAdded "kb_layout = ${KeyboardLayout}" "${HyprlandDirectory}/theme.conf"
     fi
 fi
 
@@ -97,9 +97,9 @@ fi
 # ------------------------------------------------------------- #
 if [[ ${GraphicsCard} = "Nvidia" ]]; then
     echo -e "\n[${BoldBlue}NOTE${Reset}] - Applying settings for nvidia..."
-    sed -i "s|^#\(.*source = ~/.config/hypr/nvidia.conf.*\)|\1|" "${HYPR_DIR}/hyprland.conf"
-    _IsAdded "source = ~/.config/hypr/nvidia.conf" "${HYPR_DIR}/hyprland.conf"
+    sed -i "s|^#\(.*source = ~/.config/hypr/nvidia.conf.*\)|\1|" "${HyprlandDirectory}/hyprland.conf"
+    _IsAdded "source = ~/.config/hypr/nvidia.conf" "${HyprlandDirectory}/hyprland.conf"
 
-    sed -i '/#no_hardware_cursors = true/ s/#//' "${HYPR_DIR}/theme.conf"
-    _IsAdded "no_hardware_cursors = true" "${HYPR_DIR}/theme.conf"
+    sed -i '/#no_hardware_cursors = true/ s/#//' "${HyprlandDirectory}/theme.conf"
+    _IsAdded "no_hardware_cursors = true" "${HyprlandDirectory}/theme.conf"
 fi

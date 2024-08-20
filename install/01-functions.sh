@@ -4,12 +4,13 @@
 #               Checks if the parameter was added/edited successfully into file              #
 # ------------------------------------------------------------------------------------------ #
 function _IsAdded {
-    VALUE="${1/^/}"
+    local Value="${1/^/}"
+    local File="$2"
     if grep -qw -- "$1" "$2"; then
-        echo -e "[${BoldGreen}OK${Reset}] - '${VALUE}' successfully added to $2" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldGreen}OK${Reset}] - '${Value}' successfully added to ${File}" 2>&1 | tee -a "${InstallationLog}"
         return 0
     else
-        echo -e "[${BoldRed}ERROR${Reset}] - '${VALUE}' was not added to the file $2" 2>&1 | tee -a "${InstallationLog}"
+        echo -e "[${BoldRed}ERROR${Reset}] - '${Value}' was not added to the file ${File}" 2>&1 | tee -a "${InstallationLog}"
         return 1
     fi
 }
@@ -18,7 +19,8 @@ function _IsAdded {
 #               Checks if package is already installed              #
 # ----------------------------------------------------------------- #
 function _IsInstalled {
-    if command -v "$1" &>/dev/null || pacman -Q "$1" &>/dev/null; then
+    local Package="$1"
+    if pacman -Q "${Package}" &>/dev/null; then
         return 0
     else
         return 1
@@ -29,7 +31,8 @@ function _IsInstalled {
 #               Checks if package is available in Arch repositories             #
 # ----------------------------------------------------------------------------- #
 function _IsPacmanAvailable {
-    if pacman -Si "$1" &>/dev/null; then
+    local Package="$1"
+    if pacman -Si "${Package}" &>/dev/null; then
         return 0
     else
         return 1
@@ -40,7 +43,8 @@ function _IsPacmanAvailable {
 #               Checks if package is available in AUR repositories              #
 # ----------------------------------------------------------------------------- #
 function _IsAURAvailable {
-    if ${AUR_HELPER} -Si "$1" &>/dev/null; then
+    local Package="$1"
+    if ${AUR_HELPER} -Si "${Package}" &>/dev/null; then
         return 0
     else
         return 1
@@ -79,16 +83,16 @@ function _InstallPackage {
 #               Function to capy files              #
 # ------------------------------------------------- #
 function _CopyFiles {
-    local SOURCE_DIR="$1"
-    local DEST_DIR="$2"
+    local SourceDirectory="$1"
+    local TargetDirectory="$2"
 
-    mkdir -p "$DEST_DIR"
+    mkdir -p "${TargetDirectory}"
     
-    for ITEM in "${SOURCE_DIR}"/*; do
-         if cp -r "${SOURCE_DIR}/${ITEM##*/}" "${DEST_DIR}"; then
-            echo -e "[${BoldGreen}OK${Reset}] - File copied: ${ITEM##*/} to ${DEST_DIR}" 2>&1 | tee -a "${InstallationLog}"
+    for i in "${SourceDirectory}"/*; do
+         if cp -r "${SourceDirectory}/${i##*/}" "${TargetDirectory}"; then
+            echo -e "[${BoldGreen}OK${Reset}] - File copied: ${i##*/} to ${TargetDirectory}" 2>&1 | tee -a "${InstallationLog}"
         else
-            echo -e "[${BoldRed}ERROR${Reset}] - Failed to copy file: ${ITEM##*/}" 2>&1 | tee -a "${InstallationLog}"
+            echo -e "[${BoldRed}ERROR${Reset}] - Failed to copy file: ${i##*/}" 2>&1 | tee -a "${InstallationLog}"
         fi
     done
 }
@@ -98,19 +102,19 @@ function _CopyFiles {
 # ---------------------------------------------------------------- #
 function _CloneRepository {
     local URL="$1"
-    local TARGET_DIR="$2"
+    local TargetDirectory="$2"
 
     if ! _IsInstalled git; then
         _InstallPackage git
     fi
 
-    if [ -d "$TARGET_DIR" ]; then
-        rm -rf "$TARGET_DIR"
+    if [ -d "${TargetDirectory}" ]; then
+        rm -rf "${TargetDirectory}"
     fi
 
     if git ls-remote --exit-code "$URL" &>>"${InstallationLog}"; then
         echo -e "[${BoldBlue}NOTE${Reset}] - Cloning ${URL} repository..." 2>&1 | tee -a "${InstallationLog}"
-        if git clone "${URL}" "${TARGET_DIR}" &>>"${InstallationLog}"; then
+        if git clone "${URL}" "${TargetDirectory}" &>>"${InstallationLog}"; then
             echo -e "${Clear}[${BoldGreen}OK${Reset}] - Cloned repository ${URL}" 2>&1 | tee -a "${InstallationLog}"
         else
             echo -e "${Clear}[${BoldRed}ERROR${Reset}] - Clone of ${URL} repository failed. Please check the log" 2>&1 | tee -a "${InstallationLog}"
